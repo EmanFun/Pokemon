@@ -1,6 +1,8 @@
 const {Router} = require('express');
 const {getPokemons} = require('./data');
 
+const {Pokemon, Type} = require('../db');
+
 
 
 
@@ -15,8 +17,14 @@ route_Pokemon.get('/',async (req, res, next)=>{
     try {
 
         let data =await getPokemons();
+        let bdData = await Pokemon.findAll({
+            attributes:['id','name'],
+            include: Type,
+        });
+
+
         console.log(data[0]);
-        res.send(data)
+        res.send([...bdData, ...data])
         
     } catch (err) {
         console.log(err)
