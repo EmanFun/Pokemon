@@ -5,7 +5,7 @@ const allPokemons = require('../controller/get_Pokemons');
 const pokemon = require('../controller/get_Pokemon');
 const newPokemon = require('../controller/post_Pokemon');
 const types = require('../controller/get_Types');
-
+const updatePokemons = require('../controller/put_Pokemon');
 const router = Router();
 
 // Configurar los routers
@@ -13,6 +13,7 @@ const router = Router();
 
 router.use('/pokemons', allPokemons);
 router.use('/postPokemons', newPokemon);
+router.use('/putPokemon', updatePokemons);
 router.use('/pokemons/', pokemon);
 router.use('/types', types);
 
