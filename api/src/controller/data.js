@@ -41,25 +41,25 @@ module.exports = {
         
         return axios.get(url)
         .then(response =>{
-
+            console.log(response)
             data = response.data.results;
             let arrUrl = data.map(el => axios.get(el.url));
-            
+            console.log(data)
             console.timeEnd('first request');
-
+            
             console.time('second request');
             return Promise.map(arrUrl, (obj)=>{
-                
+                obj = obj.data
                 return {
-                    id: obj.data.id , 
-                    image: obj.data.sprites.other.dream_world.front_default,
-                    types: obj.data.types.map(obj=>{
+                    id: obj.id , 
+                    image: obj.sprites.other.dream_world.front_default,
+                    types: obj.types.map(obj=>{
                         return obj.type.name
                     })
                 }
             })// bajamos un nivel de identacion.
             }).then(response => {
-
+                console.log(response)
                 
                 console.timeEnd('second request');
                 return data.map((obj, index)=>{
