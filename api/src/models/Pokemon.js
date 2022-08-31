@@ -14,22 +14,28 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     hp:{
-      type: DataTypes.INTEGER, 
+      type: DataTypes.INTEGER,
+      allowNull: false 
     },
     attack:{
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     defense:{
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
     speed:{
       type:DataTypes.INTEGER,
+      allowNull: false,
     },
     height:{
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      allowNull: false,
     },
     weight:{
       type: DataTypes.INTEGER,
+      allowNull: false,
     }
   },{
     timestamps: false

@@ -20,8 +20,6 @@ route_Pokemon.get('/',async (req, res, next)=>{
     
     if(!req.query.name){
         try {
-            
-
                 let data =await getPokemons();
                 let bdData = await Pokemon.findAll({
                     attributes:['id','name'],
@@ -51,8 +49,8 @@ route_Pokemon.get('/',async (req, res, next)=>{
             pokemonDb =await Pokemon.findOne({
                 where:{
                     name : name
-                
-                }
+                },
+                include: Type,
             });
 
             let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
@@ -76,8 +74,8 @@ route_Pokemon.get('/',async (req, res, next)=>{
         }
     } catch (error) {
 
-        return res.send(pokemonDb)
-
+        if(pokemonDb)return res.send(pokemonDb)
+        res.status(404).json({message : 'No existe ningun Pokemon con ese Nombre.'})
     }
 });
 
