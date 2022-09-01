@@ -3,7 +3,8 @@ const {getPokemons} = require('./data');
 
 const {Pokemon, Type} = require('../db');
 const axios = require('axios');
-const data = require('./data');
+
+
 
 
 
@@ -18,19 +19,19 @@ const route_Pokemon = Router()
 
 route_Pokemon.get('/',async (req, res, next)=>{
     
-    if(!req.query.name && !req.query.created){
-        try {
-                let data =await getPokemons();
-                let bdData = await Pokemon.findAll({
-                    attributes:['id','name','image'],
-                    include: Type,
-                });
+    if(!req.query.name && !req.query.created && !req.query.alfa){
+        try {   
+                //--------- total data
+            let data =await getPokemons();
+            let bdData = await Pokemon.findAll({
+            attributes:['id','name','image'],
+            include: Type,
+            });
 
-
-                console.log(data[0]);
-                return res.send([...bdData, ...data])
-            
-            
+            console.log(data[0]);
+            return res.send([...bdData, ...data])
+        
+   
         } catch (err) {
             console.log(err)
             next('route')
@@ -102,6 +103,39 @@ route_Pokemon.get('/',async (req, res, next)=>{
         }
 
     }
+    next()
+},async (req, res, next)=>{
+
+    if(req.query.alfa){
+        try {
+        
+            let alfa = req.query.alfa
+            let Pokemons = await getPokemons();
+            console.log(alfa)
+            
+            Pokemon.findAll({
+                    attributes:['id','name','image'],
+                    include: Type,
+                }).then(responseDb=>{
+                let result = [...Pokemons, ...responseDb];
+
+                if(alfa === 'asc'){
+                    //console.log(1)
+                    return res.send(result.sort((a, b)=> a.name.localeCompare(b.name) ));
+                }else{
+                    //console.log(2)
+                    return res.send(result.sort((a, b)=> b.name.localeCompare(a.name) ));
+                }
+
+            });
+     
+        } catch (error) {
+
+            console.log(error);
+            next()
+        }
+    }
+
 });
 
 

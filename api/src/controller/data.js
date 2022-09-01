@@ -41,10 +41,10 @@ module.exports = {
         
         return axios.get(url)
         .then(response =>{
-            console.log(response)
+            //console.log(response)
             data = response.data.results;
             let arrUrl = data.map(el => axios.get(el.url));
-            console.log(data)
+            //console.log(data[0])
             console.timeEnd('first request');
             
             console.time('second request');
@@ -59,7 +59,7 @@ module.exports = {
                 }
             })// bajamos un nivel de identacion.
             }).then(response => {
-                console.log(response)
+                //console.log(response)
                 
                 console.timeEnd('second request');
                 return data.map((obj, index)=>{
