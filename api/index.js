@@ -38,6 +38,7 @@ conn.sync({ force: true }).then(async () => {
     speed: 5,
     height: 20,
     weight: 5,
+    image: 'https://unaigamen.com/dsad', 
 
   })
   let type = await Type.findOne({
