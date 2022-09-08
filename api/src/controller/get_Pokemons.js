@@ -28,7 +28,7 @@ route_Pokemon.get('/',async (req, res, next)=>{
             include: Type,
             });
 
-            console.log(data[0]);
+            //console.log(data[0]);
             return res.send([...bdData, ...data])
         
    

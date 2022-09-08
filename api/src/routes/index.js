@@ -15,7 +15,7 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.use('/pokemons', allPokemons);
+router.use('/pokemons', allPokemons);// por query
 router.use('/postPokemons', newPokemon);
 router.use('/putPokemon', updatePokemons);
 router.use('/deletePokemon', removePokemon);
