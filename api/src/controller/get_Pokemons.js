@@ -24,7 +24,7 @@ route_Pokemon.get('/',async (req, res, next)=>{
                 //--------- total data
             let data =await getPokemons();
             let bdData = await Pokemon.findAll({
-            attributes:['id','name','image'],
+            attributes:['id','name','image','attack'],
             include: Type,
             });
 
@@ -44,7 +44,7 @@ route_Pokemon.get('/',async (req, res, next)=>{
     var pokemonDb;
     if(req.query.name){
         const {name} = req.query;
-
+        //search Name
         try {
             if(name){
 
@@ -85,6 +85,7 @@ route_Pokemon.get('/',async (req, res, next)=>{
 }, (req, res, next)=>{
 
     if(req.query.created){
+        //filtrado bd
         try {
             let {created} = req.query;
             if(created){
@@ -107,6 +108,7 @@ route_Pokemon.get('/',async (req, res, next)=>{
 },async (req, res, next)=>{
 
     if(req.query.alfa){
+        //ordeanado alfabetico 
         try {
         
             let alfa = req.query.alfa

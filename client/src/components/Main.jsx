@@ -1,7 +1,5 @@
-import React , { useEffect } from "react";
-import * as actions from '../redux/actions';
-import { useDispatch } from 'react-redux';
-import store from '../redux/store';
+import React from "react";
+
 
 
 
@@ -9,26 +7,28 @@ import store from '../redux/store';
 
 export default function Main(){
 
-    const dispatch = useDispatch();
 
 
-    useEffect(()=>{
-        dispatch(actions.fetchPokemons())
-    },[dispatch]); 
-    useEffect(()=>{
-        dispatch(actions.fetchTypes())
-        console.log(store.getState())
-    },[dispatch]);
 
-    
 
-    return (
-        <div>
-            <button>Ingresar</button>
-        </div>
+    return(
+        <section>
+            <div>
+            //Input search
+            //button search
+            //Opciones de ordenados 
+            //Opciones de Filtrados
+            
+            
+            </div>
+            <div>
+            // renderizado de cards
+            //linkeados a detail
+            //Paginado
+
+            </div>
+        </section>
     )
-
-
 
 
 }

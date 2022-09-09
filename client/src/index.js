@@ -5,7 +5,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 
-import Home from './components/Main';
+import Home from './components/Home';
 
 
 

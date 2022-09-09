@@ -54,3 +54,36 @@ export function fetchTypes(){
 
 
 
+
+
+//-------------------------orderanados---------------
+// un ordeanmiento desde el back
+export function highAttack(){
+    return{
+        type:'H_ATTACK'
+    }
+
+}
+
+export function lowAttack(){
+    return {
+        type: 'L_ATTACK'
+    }
+}
+
+
+//-------------------------filtrados---------------
+//un filtrado desde el back
+
+export function pokemonsApi(){
+    return{
+        type: 'POKEMONS_API'
+    }
+}
+
+export function pokemonType(payload){
+    return {
+        type:'POKEMONS_TYPE',
+        payload
+    }
+}

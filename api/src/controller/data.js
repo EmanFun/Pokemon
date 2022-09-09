@@ -53,6 +53,7 @@ module.exports = {
                 return {
                     id: obj.id , 
                     image: obj.sprites.other.dream_world.front_default,
+                    attack: obj.stats.filter(el=> el.stat.name === 'attack').map(obj=> obj.base_stat)[0],
                     types: obj.types.map(obj=>{
                         return obj.type.name
                     })
