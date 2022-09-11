@@ -4,7 +4,7 @@ import React from "react";
 
 
 
-export default function(){
+export default function Card({id,name,image,types,attack}){
 
 
 
@@ -12,9 +12,15 @@ export default function(){
 
     return(
         <div>
-            <img></img>//imagen 
-            <h3></h3>// nombre
-            <ul></ul>//tipos
+            <h4>N°{id}</h4>
+            <img src={image} height='40px' width={'40px'} alt={`Pokemon ${name}`}></img>
+            <h3>{name}</h3>
+            <ul>{
+                types.map((e,index)=>{
+                    return typeof e !== 'object' ? (<li key={index} >{e}</li>): (<li key={index}>{e.name}</li>)
+                })
+            }</ul>
+            <p>Puntos de ataque: {attack}</p>
         </div>
     )
 

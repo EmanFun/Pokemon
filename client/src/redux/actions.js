@@ -32,7 +32,15 @@ export function namePokemon(payload){
     }
 }
 
+export function clearId(payload){
+    return {
+        type: 'CLEAR_POKEMON_ID',
+        payload
+    }
+}
 
+
+//----------------------PETICIONES AXIOS----------------------------
 
 export function fetchPokemons(){
     return function(dispatch){

@@ -6,8 +6,9 @@ import reportWebVitals from './reportWebVitals';
 
 
 import Home from './components/Home';
-
-
+import Main from './components/Main';
+import Detail from './components/Detail';
+import Post from './components/Post';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -22,6 +23,9 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Route exact path={'/'} component={Home}/>
+        <Route exact path={'/Main'} component={Main}/>
+        <Route exact path={'/Detail/:id'} component={Detail}/>
+        <Route exact path={'/Post'} component={Post}/>
       </Switch>
     </Router>
   </Provider>,

@@ -1,8 +1,8 @@
 import React , { useEffect } from "react";
 import * as actions from '../redux/actions';
 import { useDispatch } from 'react-redux';
-import store from '../redux/store';
-
+//import store from '../redux/store';
+import {Link} from 'react-router-dom';
 
 
 
@@ -17,14 +17,16 @@ export default function Home(){
     },[dispatch]); 
     useEffect(()=>{
         dispatch(actions.fetchTypes())
-        console.log(store.getState())
+        
     },[dispatch]);
 
     
 
     return (
         <div>
-            <button>Ingresar</button>
+            <button>
+                <Link to='/Main'>Ingresar</Link>
+            </button>
         </div>
     )
 

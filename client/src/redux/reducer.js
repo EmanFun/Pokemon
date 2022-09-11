@@ -1,6 +1,6 @@
 const initialState = {
     pokemons: [],
-    pokemonById: [],
+    pokemonById: undefined,
     pokemonByName: [],
     types: [],
 
@@ -21,6 +21,11 @@ export default function rootReducer(state = initialState, action ){
             return{
                 ...state,
                 pokemonById: action.payload
+            }
+        case 'CLEAR_POKEMON_ID':
+            return{
+                ...state,
+                pokemonById: action.payload,
             }
         case 'ALL_TYPE':
             return{
