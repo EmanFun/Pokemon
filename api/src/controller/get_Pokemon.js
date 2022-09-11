@@ -2,6 +2,7 @@ const {Router} = require('express');
 const axios = require('axios');
 
 const {Pokemon, Type} = require('../db');
+const e = require('express');
 
 
 
@@ -34,6 +35,7 @@ router_Pokemon.get('/:id',async (req, res, next)=>{
                     speed: data.stats.filter(el=> el.stat.name === 'speed').map(obj => obj.base_stat)[0],
                     height: data.height,
                     weight: data.weight,
+                    image: data.sprites.other.dream_world.front_default,
                     types: data.types.map(el=> el.type.name)
                 }
                 res.send(result)
@@ -42,14 +44,26 @@ router_Pokemon.get('/:id',async (req, res, next)=>{
             })
         }else{
 
-            let bdPokemon = await Pokemon.findOne({
-                where:{
-                    id: id,
-                },
+            let bd = await Pokemon.findByPk(id,{
                 include: Type,
-            })
+            });
+            console.log(bd)
+            let pokemon = {
+                id: bd.id,
+                name: bd.name,
+                hp: bd.hp,
+                attack: bd.attack,
+                defense: bd.defense,
+                speed: bd.speed,
+                height: bd.height,
+                weight: bd.weight,
+                image: bd.image,
+                types: bd.types.map(e=> e.name)
+            }
             
-            res.send(bdPokemon ? bdPokemon: { message : 'No existe un pokemon con la misma id'})
+            console.log()
+            
+            res.send(pokemon ? pokemon: { message : 'No existe un pokemon con la misma id'})
 
         }
         
