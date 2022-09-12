@@ -9,6 +9,13 @@ export function allPokemons(payload){
     }
 };
 
+export function clearPokemons(){
+    return{
+        type: 'CLEAR_POKEMONS',
+    }
+
+}
+
 
 export function idPokemon(payload){
     return {
@@ -39,6 +46,13 @@ export function clearId(payload){
     }
 }
 
+export function clearName(payload){
+    return{
+        type: 'CLEAR_POKEMON_NAME',
+        payload
+    }
+}
+
 
 //----------------------PETICIONES AXIOS----------------------------
 
@@ -60,7 +74,35 @@ export function fetchTypes(){
     }
 }
 
+export function fetchPokemonsByName(name){
+    return function(dispatch){
+        axios.get(`http://localhost:3001/pokemons?name=${name}`)
+            .then(r=> r.data)
+            .then(data => dispatch(namePokemon(data)))
+            .catch(e=> console.error(e));
+    }
+}
+export function alfaOrder(order){
+    return function (dispatch){
+        axios.get(`http://localhost:3001/pokemons?alfa=${order}`)
+            .then(r=> r.data)
+            .then(data => dispatch(allPokemons(data)))
+            .catch(e=> console.error(e));
+    }
+}
+//------------------PAgination-------------------}
 
+
+export function next(){
+    return{
+        type:'NEXT_PAG'
+    }
+}
+export function prev(){
+    return{
+        type:'PREV_PAG'
+    }
+}
 
 
 

@@ -3,10 +3,13 @@ const initialState = {
     pokemonById: undefined,
     pokemonByName: [],
     types: [],
+    pagination:{
+        min: 0,
+        max: 12,
+        page: 1, 
+    } 
 
-
-};
-
+}
 
 
 export default function rootReducer(state = initialState, action ){
@@ -16,6 +19,11 @@ export default function rootReducer(state = initialState, action ){
             return {
                 ...state,
                 pokemons: action.payload
+            }
+        case 'CLEAR_POKEMONS':
+            return{
+                ...state,
+                pokemons: []
             }
         case 'ID_POKEMON':
             return{
@@ -37,9 +45,14 @@ export default function rootReducer(state = initialState, action ){
                 ...state,
                 pokemonByName: action.payload
             }
+        case 'CLEAR_POKEMON_NAME':
+            return{
+                ...state,
+                pokemonByName: action.payload
+            }
         case 'POKEMONS_API':
             return{
-                state,
+                ...state,
                 pokemons: state.pokemons.filter(e => e.id > 0)
             }
         case 'POKEMONS_TYPE':
@@ -59,6 +72,32 @@ export default function rootReducer(state = initialState, action ){
                 ...state,
                 pokemons: state.pokemons.sort((a,b) => a.attack - b.attack)
             }
+            
+    
+            case 'NEXT_PAG':
+                return{
+                    ...state,
+                    pagination: {
+                        ...state.pagination,
+                        page: state.pagination.page + 1,
+                        min:   state.pagination.min + 12,
+                        max:  state.pagination.max + 12,         
+                    }
+                    
+    
+                }
+            case 'PREV_PAG':
+                return{
+                    ...state,
+                    pagination:{
+                        ...state.pagination,
+                        page: state.pagination.page - 1,      
+                        min:  state.pagination.min - 12,
+                        max:  state.pagination.max - 12  ,
+                    }
+                    
+                     
+                }
         default: 
             return {...state}        
     }
