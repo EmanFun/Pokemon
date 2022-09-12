@@ -66,6 +66,7 @@ route_Pokemon.get('/',async (req, res, next)=>{
                     speed: pokemon.stats.filter(el=> el.stat.name === 'speed').map(obj => obj.base_stat)[0],
                     height: pokemon.height,
                     weight: pokemon.weight,
+                    image: pokemon.sprites.other.dream_world.front_default,
                     types: pokemon.types.map(el=> el.type.name)
                 }
 
