@@ -14,6 +14,9 @@ export default function Home(){
 
     useEffect(()=>{
         dispatch(actions.fetchPokemons())
+        return()=>{
+            dispatch(actions.reloadPokemon());
+        }
 
     },[dispatch]); 
     useEffect(()=>{

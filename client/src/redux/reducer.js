@@ -1,8 +1,13 @@
+import { allPokemons } from "./actions"
+
 const initialState = {
+    allPokemons: [],
     pokemons: [],
+
     pokemonById: undefined,
     pokemonByName: [],
     types: [],
+    response: '',
     pagination:{
         min: 0,
         max: 12,
@@ -15,10 +20,27 @@ const initialState = {
 export default function rootReducer(state = initialState, action ){
 
     switch(action.type){
+
+        case 'POST_RESPONSE':
+            return{
+                ...state,
+                response: action.payload,
+            }
+
+        case 'RELOAD_POKEMON':
+            return{
+                ...state,
+                pokemons : [...state.allPokemons],
+            }
+        case 'POKEMON_DB':
+            return{
+                ...state,
+                pokemons: action.payload
+            }
         case 'ALL_POKEMONS':
             return {
                 ...state,
-                pokemons: action.payload
+                allPokemons: action.payload
             }
         case 'CLEAR_POKEMONS':
             return{
@@ -53,26 +75,30 @@ export default function rootReducer(state = initialState, action ){
         case 'POKEMONS_API':
             return{
                 ...state,
-                pokemons: state.pokemons.filter(e => e.id > 0)
+                pokemons: state.allPokemons.filter(e => e.id > 0)
             }
         case 'POKEMONS_TYPE':
             return{
                 ...state,
                 pokemons: state.pokemons.filter(e => e.types.includes(action.payload) || e.types.forEach(element => {
-                    if(element.name === action.payload) return true
+                  if(element.name === action.payload) return element
                 }))
             }
         case 'H_ATTACK':
             return {
                 ...state,
-                pokemons: state.pokemons.sort((a,b) => b.attack - a.attack )
+                pokemons: [...state.pokemons.sort((a,b) => b.attack - a.attack )]
             }
-        case 'L_ATTCAK':
+        case 'L_ATTACK':
             return{
                 ...state,
-                pokemons: state.pokemons.sort((a,b) => a.attack - b.attack)
+                pokemons: [...state.pokemons.sort((a,b) => a.attack - b.attack)]
             }
-            
+        case 'ALFA':
+            return{
+                ...state,
+                pokemons: action.payload,
+            }   
     
             case 'NEXT_PAG':
                 return{

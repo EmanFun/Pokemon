@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 import Card from "./Card";
 
@@ -12,6 +12,9 @@ import * as actions from '../redux/actions';
 
 
 export default function Main(){
+
+
+    const history = useHistory();
 
     const pokemon = useSelector(state=> state.pokemons);
     const dispatch = useDispatch();
@@ -76,19 +79,35 @@ export default function Main(){
 
     }
     const db = (e)=>{
+        let bool = true;
+        dispatch(actions.dbPokemons(bool))
     // trae los pokemons de la base
     }
 
     const api = (e)=>{
         dispatch(actions.pokemonsApi())
     }
-
-
+    const allPokemons= (e)=>{
+        dispatch(actions.reloadPokemon())
+    }
+    const typePokemon = (e)=>{
+        const type = e.target.value;
+        console.log(type)
+        if(type){
+            dispatch(actions.reloadPokemon());
+            dispatch(actions.pokemonType(type))
+        }
+        
+    }
     
 
     return(
         <main>
             <section>
+            <button onClick={(e) => {
+                    e.preventDefault()
+                    history.push('/')
+                }}>inicio</button>
                 <div>
                 <input id="namePokemon" type={'text'} name={'nombre'} placeholder={'...'} />
                 <button onClick={search}>Buscar</button>
@@ -108,13 +127,18 @@ export default function Main(){
                 </div>
                 <div>
                     <p>filters</p>
-                    <select name="types" >
+                    <select name="types" onChange={typePokemon}>
+                        <option value={undefined}>Seleccione un Tipo</option>
                         {
                             types.map((e, index)=> <option key={index} value={e.name}>{e.name}</option> )
                         }
                     </select>
-                    <button>DB</button>
-                    <button onClick={api}>API</button>
+                    <div>
+                        <button onClick={allPokemons}>All Pokemons</button>
+                        <button onClick={db}>DB</button>
+                        <button onClick={api}>API</button>
+                    </div>
+                    
                 </div>
                 <div>
                     <p>Crear</p>
@@ -124,7 +148,7 @@ export default function Main(){
             <section>
                 
                 {
-                   Array.isArray(pokemonName)  ?  pagination.map((e,index)=><button key={index}>
+                   pokemonName.length === 0  ?  pagination.map((e,index)=><button key={index}>
                         <Link to={`/Detail/${e.id}`}>
                             <Card 
                             id={e.id} 
@@ -150,7 +174,7 @@ export default function Main(){
                             </Link>
                             </button>
                         </div>
-                    : <p>Loagind...</p>
+                    :  <p>LOADING..</p>
                 }
                 <button onClick={prev}>Anterior</button>
                 <button onClick={next}>Siguiente</button>

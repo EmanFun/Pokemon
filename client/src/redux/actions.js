@@ -2,6 +2,20 @@ import axios from 'axios';
 
 
 
+export function reloadPokemon(){
+    return{
+        type:'RELOAD_POKEMON',
+    }
+}
+
+export function pokemonsDB(payload){
+    return{
+        type:'POKEMON_DB',
+        payload
+    }
+}
+
+
 export function allPokemons(payload){
     return {
         type: 'ALL_POKEMONS',
@@ -53,6 +67,19 @@ export function clearName(payload){
     }
 }
 
+export function alfa(payload){
+    return{
+        type: 'ALFA',
+        payload
+    }
+}
+
+export function response(payload){
+    return{
+            type: 'POST_RESPONSE',
+            payload,
+        }
+}
 
 //----------------------PETICIONES AXIOS----------------------------
 
@@ -86,10 +113,32 @@ export function alfaOrder(order){
     return function (dispatch){
         axios.get(`http://localhost:3001/pokemons?alfa=${order}`)
             .then(r=> r.data)
-            .then(data => dispatch(allPokemons(data)))
+            .then(data => dispatch(alfa(data)))
             .catch(e=> console.error(e));
     }
 }
+export function dbPokemons(bool){
+    return function (dispatch){
+        axios.get(`http://localhost:3001/pokemons?created=${bool}`)
+            .then(r=> r.data)
+            .then(data => dispatch(pokemonsDB(data)))
+            .catch(e=>console.error(e));
+    }
+}
+
+export function postPokemon(post, history){
+    return function (dispatch){
+        axios.post('http://localhost:3001/postPokemons',post)
+            .then(r=> r.data)
+            .then(payload=>{
+                alert(payload)
+                dispatch(response(payload))
+                history.push('/Main')
+            })
+            .catch(e=> console.error(e));
+    }
+}
+
 //------------------PAgination-------------------}
 
 
