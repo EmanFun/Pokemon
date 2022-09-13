@@ -30,16 +30,16 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     height:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     weight:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     image:{
       type: DataTypes.STRING,
-      allowNull: false,
+      
       validate:{
         isUrl: true,
       }

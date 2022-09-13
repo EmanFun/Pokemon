@@ -9,7 +9,8 @@ const post_Pokemon = Router();
 
 post_Pokemon.post('/',async (req, res, next)=>{
 
-    const {name, types, hp, attack, defense, speed, height, weight} = req.body;
+    const {name, type, hp, attack, defense, speed, height, weight} = req.body;
+    let types = Array.from(type)
     console.log(req.body)
     console.log(types)
     try {
@@ -34,10 +35,10 @@ post_Pokemon.post('/',async (req, res, next)=>{
 
             instance.addType(types)
 
-            res.send({message: 'El pokemon a sido creado con exito.'})
+            res.send('El pokemon a sido creado con exito.')
         }else{
 
-            res.status(404).json({message: 'El Pokemon que intentas crear ya existe.'})
+            res.send('El Pokemon que intentas crear ya existe.')
         }
 
     } catch (error) {
