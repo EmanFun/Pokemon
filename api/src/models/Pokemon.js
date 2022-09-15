@@ -37,6 +37,10 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
+    moves:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     image:{
       type: DataTypes.STRING,
       

@@ -36,7 +36,8 @@ router_Pokemon.get('/:id',async (req, res, next)=>{
                     height: data.height,
                     weight: data.weight,
                     image: data.sprites.other.dream_world.front_default,
-                    types: data.types.map(el=> el.type.name)
+                    types: data.types.map(el=> el.type.name),
+                    moves:  data.moves.map(e=> e.move.name ) || 'no tiene movimientos ' ,
                 }
                 res.send(result)
 
