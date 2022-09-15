@@ -6,54 +6,65 @@ import * as actions from '../redux/actions';
 
 //Reparar 
 function validation(value, name, error, setError){
-
-    if(!value.match(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/) && name === 'url'){
-        setError({
-            ...error,
-            url: 'el texto no es una url',
-        })
-    }else{
-        setError({
-            ...error
-        })
-    }     
-    if(value.match(/ / && name === name)){
-        setError({
-            name: 'El nombre contiene espacios intermedios'
-        })
-    }else{
-        setError({
-            ...error,
-        })
-    }
-
-    if (!value > 0.0 && !value < 20 && name === 'height'){
-        setError({
-            ...error,
-            height: 'La altura se exede de los limites 0 y 20'
-        })
-    }else{
-        setError({
-            ...error
-        })
-    }
-    if(!value > 0.0 && !value <80 && name === 'weight'){
-        setError({
-            ...error,
-            weight: 'El peso se exede de los limites 0 y 100'
-        })
-    }else{
-        setError({
-            ...error
-        })
-    }
-    if(!value > 0 && !value < 100 ){
-        setError({
-            ...error,
-            [name]: `La/El ${name} se exede de los limites 0 y 100`,
-        })
-    }
-    return value
+    console.log(value)
+  
+        if(name === 'image' && !/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value) ){
+            console.log('entro url')
+            return  setError({
+                ...error,
+                image: 'El Texto no es una URL.'
+            })
+        }     
+        if( (name === 'name' && / /.test(value)) || (name === 'name' && value.length > 12)){
+            console.log('entro name')
+            return setError({
+                ...error,
+                name: 'El Nombre contiene espacios intermedios o contiene mas de 12 caracteres.'
+            })
+        }
+ 
+        if (name === 'height' && (value < 1 || value > 20) ){
+            console.log('entro altura')
+            return setError({
+                ...error,
+                height: 'La Altura se exede de los limites 1 y 20.'
+            })
+        }
+        if(name === 'weight' && (Number(value) < 10 || Number(value)  > 80) ){
+            console.log('entro peso')
+            return setError({
+                ...error,
+                weight: 'El Peso se exede de los limites 10 y 80.'
+            })
+        }
+        if(name === 'hp'&& (value < 10 || value > 50)){
+            return setError({
+                ...error,
+                hp: 'Los Puntos de vida exeden los limites 10 y 50.'
+            })
+        }
+        if(name === 'attack' && (value < 10 || value > 90)){
+            return setError({
+                error,
+                attack: 'El Ataque exede los limites 10 y 90.'
+            })
+        }
+        if(name === 'defense' && (value < 10 || value > 80)){
+            return setError({
+                ...error,
+                defense: 'La Defensa exede los limites 10 y 80.'
+            })
+        }
+        if(name === 'speed' && (value < 10 || value > 80)){
+            return setError({
+                ...error,
+                speed: 'La Velocidad exede los limites 10 y 80.'
+            })
+        }
+        setError({})
+        return value
+    
+    
 
 }
 
@@ -79,8 +90,12 @@ export default function Post(){
     const [error, setError] = useState({})
 
     useEffect(()=>{
+
+        return ()=>{
+            dispatch(actions.fetchPokemons())
+        }
         
-    },[])
+    },[dispatch])
     const handleChange =(e)=>{
 
         e.preventDefault();
@@ -93,10 +108,10 @@ export default function Post(){
     }
     const deleteType = (e)=>{
         e.preventDefault()
-        console.log(e.target.value)
+        
         const value = e.target.value
         form.type.delete(value)
-        console.log(form.type)
+
         setTypeSelect(typeSelect.filter(e=> e !== value))
     }
 
@@ -124,8 +139,7 @@ export default function Post(){
         
     }
     console.log(form)
-    console.log(typeof form.type)
-    console.log(typeSelect)
+    
     console.log(error)
     return (
         <div>
@@ -141,41 +155,41 @@ export default function Post(){
                 <label>Imagen</label>
                 <input type={'url'} name={'image'}  onChange={handleChange}/>
                 <img src={`${form.image}`} height='60px' width={'60px'} alt={'Imagen aportada'}></img>
-                {error.url && <p>{error.url}</p>}
+                {error.image && <p>{error.image}</p>}
                 </p>
                 <p>
                 <label>Altura</label>
-                <input type={'range'} name={'height'} min={-10}  step={0.1} defaultValue={1} onChange={handleChange}/>
+                <input type={'range'} name={'height'}  step={0.1} defaultValue={1} onChange={handleChange}/>
                 <output>{form.height}</output>
                 {error.height && <p>{error.height}</p>}
                 </p>
                 <p>
                 <label>Peso</label>
-                <input type={'range'} name={'weight'} min={-10} max={120} step={0.1} defaultValue={1} onChange={handleChange}/>
+                <input type={'range'} name={'weight'}  step={0.1} defaultValue={1} onChange={handleChange}/>
                 <output>{form.weight}</output>
                 {error.weight && <p>{error.weight}</p>}
                 </p>
                 <p>
                 <label>Puntos de vida</label>
-                <input type={'range'} name={'hp'} min={-10} max={120} step={1} defaultValue={1} onChange={handleChange}/>
+                <input type={'range'} name={'hp'}  step={1} defaultValue={1} onChange={handleChange}/>
                 <output>{form.hp}</output>
                 {error.hp && <p>{error.hp}</p>}
                 </p>
                 <p>
                 <label>Ataque</label>
-                <input type={'range'} name={'attack'} min={-10} max={120} step={1} defaultValue={1} onChange={handleChange}/>
+                <input type={'range'} name={'attack'}  step={1} defaultValue={1} onChange={handleChange}/>
                 <output>{form.attack}</output>
                 {error.attack && <p>{error.attack}</p>}
                 </p>
                 <p>
                 <label>Defensa</label>
-                <input type={'range'} name={'defense'} min={-10} max={120} step={1} defaultValue={1} onChange={handleChange}/>
+                <input type={'range'} name={'defense'}step={1} defaultValue={1} onChange={handleChange}/>
                 <output>{form.defense}</output>
                 {error.defense && <p>{error.defense}</p>}
                 </p>
                 <p>
                 <label >Velocidad</label>
-                <input type={'range'} name={'speed'} min={-10} max={120} step={1} defaultValue={1} onChange={handleChange} />
+                <input type={'range'} name={'speed'}  step={1} defaultValue={1} onChange={handleChange} />
                 <output id="outspeed"  >{form.speed}</output>
                 {error.speed && <p>{error.speed}</p>}
                 </p>
@@ -184,7 +198,7 @@ export default function Post(){
                 <>{typeSelect.length?  typeSelect.map((e,index)=> {
                     return (
                         <div key={index}>
-                        <label key={index} >{e}, </label>
+                        <label key={index} >{types[e].name}, </label>
                         <button value={e} onClick={deleteType} >X</button>
                         </div>
                     )

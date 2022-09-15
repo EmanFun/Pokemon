@@ -49,6 +49,14 @@ export default function Detail(){
                     <p>{pokemon.hp}</p>
                     <p>{pokemon.height}</p>
                     <p>{pokemon.weight}</p>
+                    <p>movimientos</p>
+                    <ul>
+                        {
+                            pokemon.moves.map((e, index)=>{
+                                return <li key={index}>{e}</li>
+                            })
+                        }
+                    </ul>
                     <ul>
                         {
                             pokemon.types.map((type, index)=> <li key={index} >{type}</li>)
