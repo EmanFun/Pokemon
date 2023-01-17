@@ -1,23 +1,24 @@
 const axios = require('axios');
+const { Op } = require("sequelize");
 
 const Promise = require('bluebird');
 
-const {Type} = require('../db');
+const {Type, Move} = require('../db');
 
 
 module.exports = {
-    getTypes: ()=>{
+    getTypesAndMoves: ()=>{
 
         return axios.get('https://pokeapi.co/api/v2/type').then(response =>{
 
             
-            let types = response.data.results
-
-            types = types.map(obj=>{
+            let types = response.data.results.map(obj=>{
                 return {
                     name: obj.name,
                 }
             });
+
+            let moves = response.data.results.map(obj=> axios.get(obj.url))
 
             types.forEach(element => {
                 Type.findOrCreate({
@@ -30,24 +31,68 @@ module.exports = {
                 });
 
             });
-        }).catch(err=>{
+
+            return Promise.map(moves, (obj)=>{
+                
+                obj = obj.data;
+                return{
+                    id: obj.id,
+                    moves: obj.moves.map((e)=> e.name),
+                    name: obj.name      
+                }
+            })
+
+        }).then(response=>{
+
+            console.log(response.length)
+            response.forEach(async(object, indexArr)=>{
+
+                let instance = await Type.findOne({
+                    where:{
+                        [Op.or]: [
+                            { id: object.id },
+                            { name: object.name }
+                            ]
+                    }
+                })
+
+                if(instance.name === object.name){
+
+                    object.moves.forEach(async(e)=>{
+                       let [moveInstance, created] =  await Move.findOrCreate({
+                            where:{
+                                name: e
+                            },
+                            defaults:{
+                                name: e
+                            }
+                        })
+                        if(created) await instance.addMoves(moveInstance)
+                    })       
+                }
+            })
+        })
+        .catch(err=>{
             console.error(err);
         })
     },
     getPokemons: () => {
         var data ;
         let url= 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=40';
+
         console.time('first request');
         
         return axios.get(url)
         .then(response =>{
-            //console.log(response)
+
             data = response.data.results;
+
             let arrUrl = data.map(el => axios.get(el.url));
-            //console.log(data[0])
+
             console.timeEnd('first request');
             
             console.time('second request');
+
             return Promise.map(arrUrl, (obj)=>{
                 obj = obj.data
                 return {
@@ -58,11 +103,11 @@ module.exports = {
                         return obj.type.name
                     })
                 }
-            })// bajamos un nivel de identacion.
+            })
             }).then(response => {
-                //console.log(response)
                 
                 console.timeEnd('second request');
+
                 return data.map((obj, index)=>{
 
                     return {
@@ -75,7 +120,5 @@ module.exports = {
                 
 
             }).catch(err=> console.error(err));
-
-        //}).catch(err=> console.error(err))
     }
 };

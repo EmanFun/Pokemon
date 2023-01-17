@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const {getTypes} = require('./src/controller/data');
+const { getTypesAndMoves} = require('./src/controller/data');
 
 //Test BD
 const {Pokemon, Type} = require('./src/db');
@@ -28,7 +28,7 @@ const {Pokemon, Type} = require('./src/db');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(async () => {
-  await getTypes()
+  await getTypesAndMoves()
   // Test BD
   let prueba = await Pokemon.create({
     name: 'Prueba',

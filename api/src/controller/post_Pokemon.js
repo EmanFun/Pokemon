@@ -9,7 +9,7 @@ const post_Pokemon = Router();
 
 post_Pokemon.post('/',async (req, res, next)=>{
 
-    const {name, type, hp, attack, defense, speed, height, weight} = req.body;
+    const {name, type, hp, attack, defense, speed, height, weight, moves} = req.body;
     let types = Array.from(type)
     console.log(req.body)
     console.log(types)
@@ -28,6 +28,7 @@ post_Pokemon.post('/',async (req, res, next)=>{
                 speed: speed,
                 height: height,
                 weight: weight,
+                moves: moves,
             }
         });
         
