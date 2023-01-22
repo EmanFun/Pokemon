@@ -26,7 +26,7 @@ export default function Main(){
     const [selectFrom, setSelectFrom] = useState('TODOS')
     //---------------------BUSQUEDA
     const suggestion = useSelector(state => state.allPokemons.map(e => e.name))
-    const [searchInput, setSearchInput ] = useState(null)
+    const [searchInput, setSearchInput ] = useState(undefined)
 
    
     //-------------------------PAGINADO---------------
@@ -126,11 +126,12 @@ export default function Main(){
     const searchAutocomplete = (e)=>{
         console.log(searchInput)
         setSearchInput(e.target.value)
+        
 
     }
     const selectPokemonSuggestion = (e)=>{
-        
-        dispatch(actions.fetchPokemonsByName(e.target.value))
+        dispatch(actions.fetchPokemonsByName(e.target.value)) 
+
 
     }
 
@@ -143,13 +144,16 @@ export default function Main(){
                 }}>inicio</button>
 
                 <div>
-                    <input id="namePokemon" type={'text'} name={'nombre'} placeholder={'Buscar'} autoComplete={'off'} onChange={searchAutocomplete} />
+                    <input id="namePokemon" type={'text'} name={'nombre'} placeholder={'Buscar'} autoComplete={'off'} onChange={searchAutocomplete}/>
                     <button onClick={search}>Buscar</button>
                     <button onClick={clear}>Limpiar</button>
                     <br></br>
-                    {
-                        searchInput ? <select id='search' name='search' onChange={selectPokemonSuggestion}>
-                            <option value={'Sugerencias'}>Sugerencias</option>
+                    {   // posible cambio a listas
+                        suggestion.find(e=> e.startsWith(searchInput)) ? <select id='search' name='search' onChange={selectPokemonSuggestion}>
+                            
+                                <option value={'Sugerencias'}>Sugerencias</option>
+
+                            
                             {
                                 searchInput ? suggestion.map((e, index)=>{
                                     return e.startsWith(searchInput) ? <option key={index} value={e}>{e}</option> : <></>
@@ -171,7 +175,7 @@ export default function Main(){
 
                 </div>
                 <div>
-                    <p>filters</p>suggestion
+                    <p>filters</p>
                     <select id="types" name="types" onChange={typePokemon}>
                         <option value={'default'}>Seleccione un Tipo</option>
                         {
