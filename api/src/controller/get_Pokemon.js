@@ -37,7 +37,15 @@ router_Pokemon.get('/:id',async (req, res, next)=>{
                     weight: data.weight,
                     image: data.sprites.other.dream_world.front_default,
                     types: data.types.map(el=> el.type.name),
-                    moves:  data.moves.map(e=> e.move.name ) || 'no tiene movimientos ' ,
+                    moves: data.moves.map((e)=> {
+                        let method;
+                        if(e.version_group_details.find((e)=> {
+                            
+                            method = e.move_learn_method.name
+                            return e.version_group.name === "red-blue" 
+                        }))return `${e.move.name} - Metodo de Aprendizaje - ${method}`
+                        
+                    }).filter(e=> e !== undefined)
                 }
                 res.send(result)
 

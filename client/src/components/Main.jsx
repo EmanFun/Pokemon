@@ -11,6 +11,7 @@ import * as actions from '../redux/actions';
 
 
 
+
 export default function Main(){
 
 
@@ -20,6 +21,9 @@ export default function Main(){
     const dispatch = useDispatch();
     const pokemonName = useSelector(state=> state.pokemonByName);
     const types = useSelector(state => state.types);
+
+    const[typeSelect, setTypeSelect] = useState()
+    const [selectFrom, setSelectFrom] = useState('TODOS')
     //-------------------------PAGINADO---------------
     
     const {page, min, max} = useSelector(state => state.pagination)
@@ -47,7 +51,7 @@ export default function Main(){
     }
     const next = (e)=>{
         console.log(page, min, max)
-        if(page < 4){
+        if(page < Math.ceil(pokemon.length / 12)){
             dispatch(actions.next())
             
         }
@@ -80,24 +84,36 @@ export default function Main(){
     }
     const db = (e)=>{
         let bool = true;
+        setTypeSelect('default')
+        setSelectFrom('DB')
         dispatch(actions.dbPokemons(bool))
     // trae los pokemons de la base
     }
 
     const api = (e)=>{
+        setTypeSelect('default')
+        setSelectFrom('API')
         dispatch(actions.pokemonsApi())
     }
     const allPokemons= (e)=>{
+        setTypeSelect('default')
+        setSelectFrom('TODOS')
         dispatch(actions.reloadPokemon())
     }
     const typePokemon = (e)=>{
-        const type = e.target.value;
-        console.log(type)
-        if(type){
-            dispatch(actions.reloadPokemon());
-            dispatch(actions.pokemonType(type))
-        }
+        const typeAction = {
+            from: selectFrom,
+            type: e.target.value,
         
+        }
+        console.log(typeAction)
+        setTypeSelect(e.target.value)
+    
+        if(typeAction){
+            //dispatch(actions.reloadPokemon());
+            dispatch(actions.pokemonType(typeAction))
+        }
+        e.target.value= "default"
     }
     
 
@@ -127,8 +143,8 @@ export default function Main(){
                 </div>
                 <div>
                     <p>filters</p>
-                    <select name="types" onChange={typePokemon}>
-                        <option value={undefined}>Seleccione un Tipo</option>
+                    <select id="types" name="types" onChange={typePokemon}>
+                        <option value={'default'}>Seleccione un Tipo</option>
                         {
                             types.map((e, index)=> <option key={index} value={e.name}>{e.name}</option> )
                         }
@@ -143,6 +159,17 @@ export default function Main(){
                 <div>
                     <p>Crear</p>
                     <Link to={'/Post'}><button>Crear</button></Link>
+                </div>
+            </section>
+            <section>
+                <div>
+                    {
+                        typeSelect !== 'default' ? <span><h3 style={{display: 'inline'}}>{typeSelect}</h3></span> : <></>
+                    }
+                    {
+                        selectFrom ? <span><h3 style={{display: 'inline'}}>{selectFrom}</h3></span> : <></>
+                    }
+                    
                 </div>
             </section>
             <section>

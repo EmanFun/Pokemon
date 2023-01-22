@@ -1,4 +1,4 @@
-import { allPokemons } from "./actions"
+
 
 const initialState = {
     allPokemons: [],
@@ -80,13 +80,13 @@ export default function rootReducer(state = initialState, action ){
         case 'POKEMONS_TYPE':
             return{
                 ...state,
-                pokemons: state.pokemons.filter(e => e.types.includes(action.payload) || e.types.forEach(element => {
-                  if(element.name === action.payload) return element
-                }))
+                pokemons: action.payload.from === 'TODOS'? state.allPokemons.filter(e => e.types.includes(action.payload.type)) : 
+                action.payload.from === 'API' ? state.allPokemons.filter(e => e.types.includes(action.payload.type)) :
+                state.allPokemons.filter(obj => obj.types.some(e=> e.name === action.payload.type) && (typeof obj.id === 'string') )
             }
         case 'H_ATTACK':
             return {
-                ...state,
+                ...state, 
                 pokemons: [...state.pokemons.sort((a,b) => b.attack - a.attack )]
             }
         case 'L_ATTACK':

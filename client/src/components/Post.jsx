@@ -129,6 +129,7 @@ export default function Post(){
             height: '',
             weight: '',
             image: '',
+            moves: '',
             type: new Set()
         })
 
@@ -190,6 +191,11 @@ export default function Post(){
                 <p>
                 <label >Velocidad</label>
                 <input type={'range'} name={'speed'}  step={1} defaultValue={1} onChange={handleChange} />
+                {/*{error.speed && <p>{error.speed}</p>}*/}
+                </p>
+                <p>
+                <label >Movimientos</label>
+                <input type={'text'} name={'moves'}  onChange={handleChange} />
                 <output id="outspeed"  >{form.speed}</output>
                 {error.speed && <p>{error.speed}</p>}
                 </p>

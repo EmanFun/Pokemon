@@ -9,6 +9,7 @@ const {Type, Move} = require('../db');
 module.exports = {
     getTypesAndMoves: ()=>{
 
+
         return axios.get('https://pokeapi.co/api/v2/type').then(response =>{
 
             
@@ -31,54 +32,66 @@ module.exports = {
                 });
 
             });
-
+            ///------------------------------------- descarga de todos los movimientos
             return Promise.map(moves, (obj)=>{
                 
                 obj = obj.data;
                 return{
                     id: obj.id,
-                    moves: obj.moves.map((e)=> e.name),
-                    name: obj.name      
+                    moves: obj.moves.map(el=> el.name),
+                    type: obj.name      
                 }
             })
 
-        }).then(response=>{
+        }).then(async(response)=>{
 
-            console.log(response.length)
-            response.forEach(async(object, indexArr)=>{
+            let allMoves = response
+            //Cargado de movimientos y respectivo relacionados
+            return axios.get("https://pokeapi.co/api/v2/generation/1/").then(res =>{
 
-                let instance = await Type.findOne({
-                    where:{
-                        [Op.or]: [
-                            { id: object.id },
-                            { name: object.name }
-                            ]
+                let genMoves = res.data.moves.map(e=> e.name)
+
+                allMoves.forEach(async(object, indexArr)=>{
+    
+                    let instance = await Type.findOne({
+                        where:{
+                            [Op.or]: [
+                                { id: object.id },
+                                { name: object.type }
+                                ]
+                        }
+                    })
+    
+                    if(instance.name === object.type){
+     
+                        
+                        object.moves.forEach(async(e, index)=>{                      
+    
+                            if(genMoves.includes(e)){
+                                let [moveInstance, created] =  await Move.findOrCreate({
+                                        where:{
+                                            name: e
+                                        },
+                                        defaults:{
+                                            name: e
+                                        }
+                                    })
+
+                                if(created) await instance.addMoves(moveInstance)
+                                }
+
+                            ///-----------------------------------------------------------------
+                        })       
                     }
-                })
-
-                if(instance.name === object.name){
-
-                    object.moves.forEach(async(e)=>{
-                       let [moveInstance, created] =  await Move.findOrCreate({
-                            where:{
-                                name: e
-                            },
-                            defaults:{
-                                name: e
-                            }
-                        })
-                        if(created) await instance.addMoves(moveInstance)
-                    })       
-                }
             })
         })
         .catch(err=>{
-            console.error(err);
+        console.error(err);
         })
-    },
+    })},
     getPokemons: () => {
         var data ;
-        let url= 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=40';
+        let url= 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=160';
 
         console.time('first request');
         
@@ -94,6 +107,7 @@ module.exports = {
             console.time('second request');
 
             return Promise.map(arrUrl, (obj)=>{
+                //console.log(obj.data)
                 obj = obj.data
                 return {
                     id: obj.id , 

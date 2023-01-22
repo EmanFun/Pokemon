@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom';
 export default function Home(){
 
     const dispatch = useDispatch();
-
+    //crear un retardo animacion de aprox 10 segundos o lo que dure la peticion request
 
     useEffect(()=>{
         dispatch(actions.fetchPokemons())
