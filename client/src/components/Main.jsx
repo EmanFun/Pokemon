@@ -21,9 +21,14 @@ export default function Main(){
     const dispatch = useDispatch();
     const pokemonName = useSelector(state=> state.pokemonByName);
     const types = useSelector(state => state.types);
-
+    //------------------FILTROS
     const[typeSelect, setTypeSelect] = useState()
     const [selectFrom, setSelectFrom] = useState('TODOS')
+    //---------------------BUSQUEDA
+    const suggestion = useSelector(state => state.allPokemons.map(e => e.name))
+    const [searchInput, setSearchInput ] = useState(null)
+
+   
     //-------------------------PAGINADO---------------
     
     const {page, min, max} = useSelector(state => state.pagination)
@@ -34,12 +39,14 @@ export default function Main(){
         //dispatch(actions.init())
         setPagination([...pokemon.slice(min,max || pokemon.length)])
 
-    },[dispatch,min,max,pokemon])
+    },[dispatch,min,max,pokemon,searchInput])
     //------------------------------------------------
 
 
 
     const search = (e)=>{
+
+
         let name = document.getElementById('namePokemon').value;
         if(name){
             dispatch(actions.fetchPokemonsByName(name))
@@ -115,7 +122,17 @@ export default function Main(){
         }
         e.target.value= "default"
     }
-    
+
+    const searchAutocomplete = (e)=>{
+        console.log(searchInput)
+        setSearchInput(e.target.value)
+
+    }
+    const selectPokemonSuggestion = (e)=>{
+        
+        dispatch(actions.fetchPokemonsByName(e.target.value))
+
+    }
 
     return(
         <main>
@@ -124,10 +141,22 @@ export default function Main(){
                     e.preventDefault()
                     history.push('/')
                 }}>inicio</button>
+
                 <div>
-                <input id="namePokemon" type={'text'} name={'nombre'} placeholder={'...'} />
-                <button onClick={search}>Buscar</button>
-                <button onClick={clear}>Limpiar</button>
+                    <input id="namePokemon" type={'text'} name={'nombre'} placeholder={'Buscar'} autoComplete={'off'} onChange={searchAutocomplete} />
+                    <button onClick={search}>Buscar</button>
+                    <button onClick={clear}>Limpiar</button>
+                    <br></br>
+                    {
+                        searchInput ? <select id='search' name='search' onChange={selectPokemonSuggestion}>
+                            <option value={'Sugerencias'}>Sugerencias</option>
+                            {
+                                searchInput ? suggestion.map((e, index)=>{
+                                    return e.startsWith(searchInput) ? <option key={index} value={e}>{e}</option> : <></>
+                                }) : <></>
+                            }
+                        </select> : <></>
+                    }
                 </div>
                 <div>
                     
@@ -142,7 +171,7 @@ export default function Main(){
 
                 </div>
                 <div>
-                    <p>filters</p>
+                    <p>filters</p>suggestion
                     <select id="types" name="types" onChange={typePokemon}>
                         <option value={'default'}>Seleccione un Tipo</option>
                         {
