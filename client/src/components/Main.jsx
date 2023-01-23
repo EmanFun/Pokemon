@@ -16,18 +16,19 @@ export default function Main(){
 
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const pokemon = useSelector(state=> state.pokemons);
-    const dispatch = useDispatch();
     const pokemonName = useSelector(state=> state.pokemonByName);
     const types = useSelector(state => state.types);
     //------------------FILTROS
     const[typeSelect, setTypeSelect] = useState()
     const [selectFrom, setSelectFrom] = useState('TODOS')
     //---------------------BUSQUEDA
+    
     const suggestion = useSelector(state => state.allPokemons.map(e => e.name))
-    const [searchInput, setSearchInput ] = useState(undefined)
-
+    const [searchPokemon, setSearchPokemon ] = useState()
+    console.log(searchPokemon, typeof searchPokemon)
    
     //-------------------------PAGINADO---------------
     
@@ -36,23 +37,13 @@ export default function Main(){
 
     useEffect(()=>{
 
-        //dispatch(actions.init())
         setPagination([...pokemon.slice(min,max || pokemon.length)])
 
-    },[dispatch,min,max,pokemon,searchInput])
+    },[dispatch,min,max,pokemon,searchPokemon])
     //------------------------------------------------
 
 
 
-    const search = (e)=>{
-
-
-        let name = document.getElementById('namePokemon').value;
-        if(name){
-            dispatch(actions.fetchPokemonsByName(name))
-            
-        }
-    }
     const clear = (e)=>{
         dispatch(actions.clearName([]))
     }
@@ -86,23 +77,26 @@ export default function Main(){
             dispatch(actions.clearPokemons());
             dispatch(actions.alfaOrder(alfa));
         }
-
-
+        
+        
     }
     const db = (e)=>{
+        clearStateNamePokemon();
         let bool = true;
         setTypeSelect('default')
         setSelectFrom('DB')
         dispatch(actions.dbPokemons(bool))
-    // trae los pokemons de la base
+        // trae los pokemons de la base
     }
-
+    
     const api = (e)=>{
+        clearStateNamePokemon();
         setTypeSelect('default')
         setSelectFrom('API')
         dispatch(actions.pokemonsApi())
     }
     const allPokemons= (e)=>{
+        clearStateNamePokemon();
         setTypeSelect('default')
         setSelectFrom('TODOS')
         dispatch(actions.reloadPokemon())
@@ -111,28 +105,42 @@ export default function Main(){
         const typeAction = {
             from: selectFrom,
             type: e.target.value,
-        
+            
         }
         console.log(typeAction)
         setTypeSelect(e.target.value)
-    
+        
         if(typeAction){
             //dispatch(actions.reloadPokemon());
             dispatch(actions.pokemonType(typeAction))
         }
         e.target.value= "default"
     }
-
+    const clearStateNamePokemon = () => {
+        dispatch(actions.clearPokemons())
+    }
+ //-----------------------------SearchBarEvent  
+    const search = (e)=>{
+        setSelectFrom('SEARCH')
+        let namePokemon = document.getElementById('namePokemon');
+        if(namePokemon.value){
+            
+            dispatch(actions.fetchPokemonsByName(namePokemon.value))
+            namePokemon.value = ""
+            setSearchPokemon()
+        }
+    }
     const searchAutocomplete = (e)=>{
-        console.log(searchInput)
-        setSearchInput(e.target.value)
-        
-
+        setSearchPokemon(e.target.value)
+        //if(searchPokemon) setSearchPokemon()
     }
     const selectPokemonSuggestion = (e)=>{
+        setSelectFrom('SEARCH')
         dispatch(actions.fetchPokemonsByName(e.target.value)) 
-
-
+        let inputClear = document.getElementById('namePokemon');
+        inputClear.value = ""
+        setSearchPokemon()
+        
     }
 
     return(
@@ -146,20 +154,22 @@ export default function Main(){
                 <div>
                     <input id="namePokemon" type={'text'} name={'nombre'} placeholder={'Buscar'} autoComplete={'off'} onChange={searchAutocomplete}/>
                     <button onClick={search}>Buscar</button>
-                    <button onClick={clear}>Limpiar</button>
                     <br></br>
-                    {   // posible cambio a listas
-                        suggestion.find(e=> e.startsWith(searchInput)) ? <select id='search' name='search' onChange={selectPokemonSuggestion}>
-                            
-                                <option value={'Sugerencias'}>Sugerencias</option>
+                   { 
+                        document.getElementById('namePokemon')?.value  ?  <>
+                                            {   // posible cambio a listas
+                                            suggestion?.find(e=> e.startsWith(searchPokemon) && e.length !== searchPokemon.length) ? <li>
 
-                            
-                            {
-                                searchInput ? suggestion.map((e, index)=>{
-                                    return e.startsWith(searchInput) ? <option key={index} value={e}>{e}</option> : <></>
-                                }) : <></>
-                            }
-                        </select> : <></>
+                                                {
+                                                    searchPokemon ? suggestion?.map((e, index)=>{
+                                                        return e.startsWith(searchPokemon) && e.length !== searchPokemon.length ? <ul key={index}  ><button value={e} onClick={selectPokemonSuggestion} >{e}</button></ul> : <></>
+                                                    }) : <></>
+                                                }
+
+                                            </li> : <></>
+                                                
+                                            }   
+                                    </>  : <></>
                     }
                 </div>
                 <div>

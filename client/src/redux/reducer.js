@@ -45,7 +45,10 @@ export default function rootReducer(state = initialState, action ){
         case 'CLEAR_POKEMONS':
             return{
                 ...state,
-                pokemons: []
+                pokemons: [],
+                pokemonByName: []
+                
+
             }
         case 'ID_POKEMON':
             return{
