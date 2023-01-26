@@ -44,9 +44,7 @@ export default function Main(){
 
 
 
-    const clear = (e)=>{
-        dispatch(actions.clearName([]))
-    }
+
     const next = (e)=>{
         console.log(page, min, max)
         if(page < Math.ceil(pokemon.length / 12)){
@@ -71,13 +69,14 @@ export default function Main(){
     }
     
     const alfaOrder = (e)=>{
-        const alfa = e.target.value;
-        console.log(alfa);
-        if(alfa){
-            dispatch(actions.clearPokemons());
-            dispatch(actions.alfaOrder(alfa));
+        const order = e.target.value;
+
+        if(order === 'A_Z'){
+            dispatch(actions.orderA_Z());
+        }else{
+            dispatch(actions.orderZ_A())
         }
-        
+        e.target.value = 'default';
         
     }
     const db = (e)=>{
@@ -178,9 +177,9 @@ export default function Main(){
                     <button onClick={highAttack}>↑Ataque</button>
                     <button onClick={lowAttack}>↓Ataque</button>
                     <select name="Alfaoption" required={true} onChange={alfaOrder}>
-                        <option value={undefined}>Elegir</option>
-                        <option value={'asc'}>↑Alfa</option>
-                        <option value={'desc'}>↓Alfa</option>
+                        <option value={'default'}>Elegir</option>
+                        <option value={'A_Z'}>A_Z</option>
+                        <option value={'Z_A'}>Z_A</option>
                     </select>
 
                 </div>

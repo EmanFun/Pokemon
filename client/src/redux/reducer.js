@@ -87,6 +87,7 @@ export default function rootReducer(state = initialState, action ){
                 action.payload.from === 'API' ? state.allPokemons.filter(e => e.types.includes(action.payload.type)) :
                 state.allPokemons.filter(obj => obj.types.some(e=> e.name === action.payload.type) && (typeof obj.id === 'string') )
             }
+        //ordenamiento por Ataque
         case 'H_ATTACK':
             return {
                 ...state, 
@@ -97,36 +98,42 @@ export default function rootReducer(state = initialState, action ){
                 ...state,
                 pokemons: [...state.pokemons.sort((a,b) => a.attack - b.attack)]
             }
-        case 'ALFA':
+        //ordenamiento Alfabetico   
+        case 'A_Z':
             return{
                 ...state,
-                pokemons: action.payload,
-            }   
-    
-            case 'NEXT_PAG':
-                return{
-                    ...state,
-                    pagination: {
-                        ...state.pagination,
-                        page: state.pagination.page + 1,
-                        min:   state.pagination.min + 12,
-                        max:  state.pagination.max + 12,         
-                    }
-                    
-    
+                pokemons: [...state.pokemons.sort((a, b)=> a.name.localeCompare(b.name) )]
+            }
+        case 'Z_A':
+            return{
+                ...state,
+                pokemons: [...state.pokemons.sort((a, b)=> b.name.localeCompare(a.name) )]
+            }
+        //Paginado
+        case 'NEXT_PAG':
+            return{
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    page: state.pagination.page + 1,
+                    min:   state.pagination.min + 12,
+                    max:  state.pagination.max + 12,         
                 }
-            case 'PREV_PAG':
-                return{
-                    ...state,
-                    pagination:{
-                        ...state.pagination,
-                        page: state.pagination.page - 1,      
-                        min:  state.pagination.min - 12,
-                        max:  state.pagination.max - 12  ,
-                    }
-                    
-                     
+                
+
+            }
+        case 'PREV_PAG':
+            return{
+                ...state,
+                pagination:{
+                    ...state.pagination,
+                    page: state.pagination.page - 1,      
+                    min:  state.pagination.min - 12,
+                    max:  state.pagination.max - 12  ,
                 }
+                
+                    
+            }
         default: 
             return {...state}        
     }

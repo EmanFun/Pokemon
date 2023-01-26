@@ -156,7 +156,7 @@ export function prev(){
 
 
 //-------------------------orderanados---------------
-// un ordeanmiento desde el back
+// por Ataque
 export function highAttack(){
     return{
         type:'H_ATTACK'
@@ -167,6 +167,19 @@ export function highAttack(){
 export function lowAttack(){
     return {
         type: 'L_ATTACK'
+    }
+}
+//alfabetico
+
+export function orderA_Z(){
+    return{
+        type: 'A_Z'
+    }
+}
+
+export function orderZ_A(){
+    return{
+        type: 'Z_A'
     }
 }
 
