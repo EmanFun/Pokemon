@@ -7,7 +7,7 @@ const newPokemon = require('../controller/post_Pokemon');
 const types = require('../controller/get_Types');
 const updatePokemons = require('../controller/put_Pokemon');
 const removePokemon = require('../controller/delete_Pokemon');
-
+const moves = require('../controller/get_Moves');
 
 
 const router = Router();
@@ -21,6 +21,6 @@ router.use('/putPokemon', updatePokemons);
 router.use('/deletePokemon', removePokemon);
 router.use('/pokemons/', pokemon);
 router.use('/types', types);
-
+router.use('/movesPerType', moves)
 
 module.exports = router;

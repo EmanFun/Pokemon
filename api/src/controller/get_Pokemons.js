@@ -100,7 +100,6 @@ route_Pokemon.get('/',async (req, res, next)=>{
         }
 
     }
-    next()
 });
 
 
