@@ -4,9 +4,12 @@ const initialState = {
     allPokemons: [],
     pokemons: [],
 
+    types: [],
+    moves: [],
+
     pokemonById: undefined,
     pokemonByName: [],
-    types: [],
+
     response: '',
     pagination:{
         min: 0,
@@ -64,6 +67,11 @@ export default function rootReducer(state = initialState, action ){
             return{
                 ...state,
                 types: action.payload
+            }
+        case 'ALL_MOVE':
+            return{
+                ...state,
+                moves: action.payload
             }
         case 'NAME_POKEMON':
             return {

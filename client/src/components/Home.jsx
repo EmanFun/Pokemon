@@ -21,6 +21,7 @@ export default function Home(){
     },[dispatch]); 
     useEffect(()=>{
         dispatch(actions.fetchTypes())
+        dispatch(actions.fetchMoves())
         
     },[dispatch]);
 

@@ -45,6 +45,12 @@ export function types(payload){
         payload
     }
 }
+export function moves(payload){
+    return{
+        type: 'ALL_MOVE',
+        payload
+    }
+}
 
 export function namePokemon(payload){
     return{
@@ -67,12 +73,6 @@ export function clearName(payload){
     }
 }
 
-export function alfa(payload){
-    return{
-        type: 'ALFA',
-        payload
-    }
-}
 
 export function response(payload){
     return{
@@ -101,6 +101,15 @@ export function fetchTypes(){
     }
 }
 
+export function fetchMoves(){
+    return function(dispatch){
+        axios.get('http://localhost:3001/movesPerType')
+            .then(r => r.data)
+            .then(data => dispatch(moves(data)))
+            .catch(err=> console.error(err))
+    }
+}
+
 export function fetchPokemonsByName(name){
     return function(dispatch){
         axios.get(`http://localhost:3001/pokemons?name=${name}`)
@@ -109,14 +118,8 @@ export function fetchPokemonsByName(name){
             .catch(e=> console.error(e));
     }
 }
-export function alfaOrder(order){
-    return function (dispatch){
-        axios.get(`http://localhost:3001/pokemons?alfa=${order}`)
-            .then(r=> r.data)
-            .then(data => dispatch(alfa(data)))
-            .catch(e=> console.error(e));
-    }
-}
+
+
 export function dbPokemons(bool){
     return function (dispatch){
         axios.get(`http://localhost:3001/pokemons?created=${bool}`)
