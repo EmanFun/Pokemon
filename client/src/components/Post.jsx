@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -70,10 +72,17 @@ function validation(value, name, error, setError){
 
 
 export default function Post(){
-
-    const types = useSelector(state=> state.types);
+    
+    const allTypes = useSelector(state=> state.types)
+    const [types, setTypes ]= useState([...allTypes]);
+    const moves = useSelector(state=> state.moves);
+    
+    
     const history = useHistory();
     const dispatch = useDispatch();
+
+
+
     const [form, setForm] = useState({
         name: '',
         hp: '',
@@ -85,7 +94,9 @@ export default function Post(){
         image: '',
         type: new Set()
     })
-    const [typeSelect, setTypeSelect] = useState([...form.type])
+    const [typeSelect, setTypeSelect] = useState([])
+
+    const [movesRender , setMovesRender] = useState([])
 
     const [error, setError] = useState({})
 
@@ -95,7 +106,9 @@ export default function Post(){
             dispatch(actions.fetchPokemons())
         }
         
-    },[dispatch])
+    },[dispatch, setMovesRender])
+    
+    
     const handleChange =(e)=>{
 
         e.preventDefault();
@@ -104,15 +117,24 @@ export default function Post(){
             ...form,
             [e.target.name]: e.target.name === 'type' ? form.type.add(e.target.value): validation(e.target.value, e.target.name, error, setError) ,
         })
-        setTypeSelect([...form.type])
+        setTypeSelect([...form.type].map(e => {
+            return{
+                id: e,
+                type: allTypes[e-1].name
+            }
+        }))
+        
+
     }
+    
     const deleteType = (e)=>{
         e.preventDefault()
         
         const value = e.target.value
-        form.type.delete(value)
+        form[e.target.name].delete(value)
 
-        setTypeSelect(typeSelect.filter(e=> e !== value))
+        setTypeSelect(typeSelect.filter(e=> e.id !== value))
+        
     }
 
     const handleSubmit = (event)=>{
@@ -134,14 +156,16 @@ export default function Post(){
         })
 
     }
+    
     const back = (e)=>{
         e.preventDefault();
         history.push('/Main');
         
     }
-    console.log(form)
+    console.log(form.type)
+    console.log(movesRender)
+    console.log(typeSelect)
     
-    console.log(error)
     return (
         <div>
         <button onClick={back}>Volver</button>
@@ -204,22 +228,47 @@ export default function Post(){
                 <>{typeSelect.length?  typeSelect.map((e,index)=> {
                     return (
                         <div key={index}>
-                        <label key={index} >{types[e].name}, </label>
-                        <button value={e} onClick={deleteType} >X</button>
+                        <label key={index} >{e.type}, </label>
+                        <button name="type" value={e.id} onClick={deleteType} >X</button>
                         </div>
                     )
                     }) : <p>Ninguno</p>} </>
                 
                 <hr/>
-                {
+                {   // al selecionar el tipo renderizaria sus movimientos correspondientes para podes ser seleccionados, debe tener un maximo de movimientos en total
+                    // seran asociados correspondientemente con el pokemon en la ruta post 
                     types.map((e, index)=> {
-                        return (
-                            <span key={e.id}> {e.name}
-                            <input key={index} name='type' type={'radio'} value={e.id} onChange={handleChange}/>
+                        return  (<>
+                            <span key={index}> {e.name}
+                            <input  name='type' type={'radio'} value={e.id} onChange={handleChange}/>
                             </span>
-                            )})
+                            <br/>
+                            </>
+                            )}) 
                 }
                 <hr/>
+                <p>Movimientos</p>
+                <hr/>
+                {
+                    moves.filter(b =>{
+            
+                        let match = false
+            
+                        typeSelect.forEach(e => {
+                             if(e.type === b.ofType){
+                                match = true
+                             }
+                        })
+                        return match
+                    }).map(e=>{
+                        return (
+                            <div key={e.id}>
+                                <span>{e.move}</span>
+                            </div>
+                        )
+                    })
+                }
+
                 <input type={'submit'} value={'Crear'}/>
 
             </form>
