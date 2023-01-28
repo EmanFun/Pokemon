@@ -9,7 +9,7 @@ const route_Moves = Router();
 route_Moves.get('/',(req, res, next)=>{
 
      Move.findAll({
-        attributes: ['id','name'],
+        attributes: ['id','name','power','accuracy','pp','damage_class'],
         include: {
             model: Type,
         }
@@ -19,6 +19,10 @@ route_Moves.get('/',(req, res, next)=>{
             return {
                 id: obj.id,
                 move: obj.name,
+                power: obj.power,
+                accuracy: obj.accuracy,
+                pp: obj.pp,
+                damage_class: obj.damage_class,
                 ofType: obj.type.name
             }
         }))

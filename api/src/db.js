@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const { platform } = require('os');
+
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -41,6 +42,9 @@ Type.belongsToMany(Pokemon,{through: 'typePokemon',timestamps: false});
 
 Type.hasMany(Move)
 Move.belongsTo(Type)
+
+Move.hasMany(Pokemon);
+Pokemon.belongsTo(Move);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

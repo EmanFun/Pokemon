@@ -9,86 +9,97 @@ const {Type, Move} = require('../db');
 module.exports = {
     getTypesAndMoves: ()=>{
 
+        
 
-        return axios.get('https://pokeapi.co/api/v2/type').then(response =>{
+        return axios.get('https://pokeapi.co/api/v2/type')
+            .then(response =>{
 
-            
-            let types = response.data.results.map(obj=>{
-                return {
-                    name: obj.name,
-                }
-            });
-
-            let moves = response.data.results.map(obj=> axios.get(obj.url))
-
-            types.forEach(element => {
-                Type.findOrCreate({
-                    where:{
-                        name: element.name
-                    },
-                    defaults:{
-                        name : element.name
+                
+                let types = response.data.results.map(obj=>{
+                    return {
+                        name: obj.name,
                     }
                 });
 
-            });
-            ///------------------------------------- descarga de todos los movimientos
-            return Promise.map(moves, (obj)=>{
-                
-                obj = obj.data;
-                return{
-                    id: obj.id,
-                    moves: obj.moves.map(el=> el.name),
-                    type: obj.name      
-                }
-            })
+           
 
-        }).then(async(response)=>{
-
-            let allMoves = response
-            //Cargado de movimientos y respectivo relacionados
-            return axios.get("https://pokeapi.co/api/v2/generation/1/").then(res =>{
-
-                let genMoves = res.data.moves.map(e=> e.name)
-
-                allMoves.forEach(async(object, indexArr)=>{
-    
-                    let instance = await Type.findOne({
+                types.forEach(element => {
+                    Type.findOrCreate({
                         where:{
-                            [Op.or]: [
-                                { id: object.id },
-                                { name: object.type }
-                                ]
+                            name: element.name
+                        },
+                        defaults:{
+                            name : element.name
+                        }
+                    });
+
+                });
+                ///------------------------------------- descarga de todos los movimientos
+                
+
+                return axios.get("https://pokeapi.co/api/v2/generation/1/")
+
+                .then(resGen =>{
+
+                     return resGen.data.moves.map(async(moveGen)=>{
+                    
+                        return axios.get(moveGen.url)
+               
+                     })
+
+
+                })
+                .then(dataMove => { 
+
+                    return Promise.map(dataMove,(moveDetail)=>{
+                        let result = moveDetail.data
+                        return {
+                            id: result.id,
+                            name : result.name,
+                            power: result.power || 0,
+                            accuracy: result.accuracy || 0,
+                            pp: result.pp || 0,
+                            damage_class: result.damage_class.name,
+                            type:  result.type.name
                         }
                     })
-    
-                    if(instance.name === object.type){
-     
+            
+                }).then(arr =>{ 
+               
+                    console.log(arr)
+                    arr.forEach(async(object, indexArr)=>{
                         
-                        object.moves.forEach(async(e, index)=>{                      
-    
-                            if(genMoves.includes(e)){
-                                let [moveInstance, created] =  await Move.findOrCreate({
-                                        where:{
-                                            name: e
-                                        },
-                                        defaults:{
-                                            name: e
-                                        }
-                                    })
+                        let instance = await Type.findOne({
+                            where:{
+                                [Op.or]: [
+                                    { id: object.id },
+                                    { name: object.type }
+                                    ]
+                            }
+                        })
 
-                                if(created) await instance.addMoves(moveInstance)
+                        let [moveInstance, created] =  await Move.findOrCreate({
+                                where:{
+                                    name: object.name
+                                },
+                                defaults:{
+                                    name: object.name,
+                                    power: object.power ,
+                                    accuracy: object.accuracy ,
+                                    pp: object.pp,
+                                    damage_class: object.damage_class, 
                                 }
+                            })
 
-                            ///-----------------------------------------------------------------
-                        })       
-                    }
+                        if(created) await instance.addMoves(moveInstance)
+                  ///-----------------------------------------------------------------                
+                    })
+            })
+            .catch(err=>{
+                console.error(err);
             })
         })
-        .catch(err=>{
-        console.error(err);
-        })
-    })},
+    },
     getPokemons: () => {
         var data ;
         let url= 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=160';
