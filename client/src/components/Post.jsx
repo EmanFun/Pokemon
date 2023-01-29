@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+
 import * as actions from '../redux/actions';
 
 //Reparar 
@@ -74,8 +75,8 @@ function validation(value, name, error, setError){
 export default function Post(){
     
     const allTypes = useSelector(state=> state.types)
-    const [types, setTypes ]= useState([...allTypes]);
-    const moves = useSelector(state=> state.moves);
+    let [types, setTypes ]= useState([...allTypes]);
+    const moves = useSelector(state=> state.moves.sort((a, b)=> a.id - b.id));
     
     
     const history = useHistory();
@@ -92,21 +93,24 @@ export default function Post(){
         height: '',
         weight: '',
         image: '',
-        type: new Set()
+        type: new Set(),
+        move: new Set()
     })
     const [typeSelect, setTypeSelect] = useState([])
 
-    const [movesRender , setMovesRender] = useState([])
+    const [moveSelect , setMoveSelect] = useState([])
 
     const [error, setError] = useState({})
 
     useEffect(()=>{
 
+       
+
         return ()=>{
             dispatch(actions.fetchPokemons())
         }
         
-    },[dispatch, setMovesRender])
+    },[dispatch])
     
     
     const handleChange =(e)=>{
@@ -115,24 +119,50 @@ export default function Post(){
     
         setForm({
             ...form,
-            [e.target.name]: e.target.name === 'type' ? form.type.add(e.target.value): validation(e.target.value, e.target.name, error, setError) ,
+            [e.target.name]: e.target.name === 'type' ? form.type.add(e.target.value):  e.target.name === 'move' ? form.move.add(e.target.value) : validation(e.target.value, e.target.name, error, setError) ,
         })
-        setTypeSelect([...form.type].map(e => {
-            return{
-                id: e,
-                type: allTypes[e-1].name
-            }
-        }))
-        
+
+        if(e.target.name === 'move'){
+
+            setMoveSelect([...form.move].map((e) => {
+
+                return{
+                    id: e,
+                    move: moves[e-1].move
+                }
+            }))
+
+        } 
+
+        if(e.target.name === 'type'){
+
+            setTypes([...types.filter(e=> !form.type.has(`${e.id}`) )])
+            //console.log(types)
+            setTypeSelect([...form.type].map(e => {
+                return{
+                    id: e,
+                    type: allTypes[e-1].name
+                }
+            }))
+        }
 
     }
     
-    const deleteType = (e)=>{
+    const deleteSelected = (e)=>{
         e.preventDefault()
         
         const value = e.target.value
         form[e.target.name].delete(value)
+        if(e.target.name === 'move'){
+            setMoveSelect([...form.move].map((e) => {
 
+                return{
+                    id: e,
+                    move: moves[e-1].move
+                }
+            }))
+        }
+        setTypes([...allTypes.filter(e=> !form.type.has(`${e.id}`) )])
         setTypeSelect(typeSelect.filter(e=> e.id !== value))
         
     }
@@ -165,7 +195,8 @@ export default function Post(){
         history.push('/Main');
         
     }
-    //console.log(form)
+    console.log(form.type, form.move)
+    console.log(moves)
     //console.log(movesRender)
     //console.log(typeSelect)
     
@@ -174,83 +205,91 @@ export default function Post(){
         <button onClick={back}>Volver</button>
             <form onSubmit={handleSubmit}>
                 <p>
-                <label>Nombre</label>
-                <input type={'text'} name={'name'}  onChange={handleChange}/>
-                {error.name && <p>{error.name}</p>  }
+                    <label>Nombre</label>
+                    <input type={'text'} name={'name'}  onChange={handleChange}/>
+                    {error.name && <p>{error.name}</p>  }
                 </p>
 
                 <p>
-                <label>Imagen</label>
-                <input type={'url'} name={'image'}  onChange={handleChange}/>
-                <img src={`${form.image}`} height='60px' width={'60px'} alt={'Imagen aportada'}></img>
-                {error.image && <p>{error.image}</p>}
+                    <label>Imagen</label>
+                    <input type={'url'} name={'image'}  onChange={handleChange}/>
+                    <img src={`${form.image}`} height='60px' width={'60px'} alt={'Imagen aportada'}></img>
+                    {error.image && <p>{error.image}</p>}
                 </p>
                 <p>
-                <label>Altura</label>
-                <input type={'range'} name={'height'}  step={0.1} defaultValue={1} onChange={handleChange}/>
-                <output>{form.height}</output>
-                {error.height && <p>{error.height}</p>}
+                    <label>Altura</label>
+                    <input type={'range'} name={'height'}  step={0.1} defaultValue={1} onChange={handleChange}/>
+                    <output>{form.height}</output>
+                    {error.height && <p>{error.height}</p>}
                 </p>
                 <p>
-                <label>Peso</label>
-                <input type={'range'} name={'weight'}  step={0.1} defaultValue={1} onChange={handleChange}/>
-                <output>{form.weight}</output>
-                {error.weight && <p>{error.weight}</p>}
+                    <label>Peso</label>
+                    <input type={'range'} name={'weight'}  step={0.1} defaultValue={1} onChange={handleChange}/>
+                    <output>{form.weight}</output>
+                    {error.weight && <p>{error.weight}</p>}
                 </p>
                 <p>
-                <label>Puntos de vida</label>
-                <input type={'range'} name={'hp'}  step={1} defaultValue={1} onChange={handleChange}/>
-                <output>{form.hp}</output>
-                {error.hp && <p>{error.hp}</p>}
+                    <label>Puntos de vida</label>
+                    <input type={'range'} name={'hp'}  step={1} defaultValue={1} onChange={handleChange}/>
+                    <output>{form.hp}</output>
+                    {error.hp && <p>{error.hp}</p>}
                 </p>
                 <p>
-                <label>Ataque</label>
-                <input type={'range'} name={'attack'}  step={1} defaultValue={1} onChange={handleChange}/>
-                <output>{form.attack}</output>
-                {error.attack && <p>{error.attack}</p>}
+                    <label>Ataque</label>
+                    <input type={'range'} name={'attack'}  step={1} defaultValue={1} onChange={handleChange}/>
+                    <output>{form.attack}</output>
+                    {error.attack && <p>{error.attack}</p>}
                 </p>
                 <p>
-                <label>Defensa</label>
-                <input type={'range'} name={'defense'}step={1} defaultValue={1} onChange={handleChange}/>
-                <output>{form.defense}</output>
-                {error.defense && <p>{error.defense}</p>}
+                    <label>Defensa</label>
+                    <input type={'range'} name={'defense'}step={1} defaultValue={1} onChange={handleChange}/>
+                    <output>{form.defense}</output>
+                    {error.defense && <p>{error.defense}</p>}
                 </p>
                 <p>
-                <label >Velocidad</label>
-                <input type={'range'} name={'speed'}  step={1} defaultValue={1} onChange={handleChange} />
-                {/*{error.speed && <p>{error.speed}</p>}*/}
+                    <label >Velocidad</label>
+                    <input type={'range'} name={'speed'}  step={1} defaultValue={1} onChange={handleChange} />
+                    {/*{error.speed && <p>{error.speed}</p>}*/}
                 </p>
-                <p>
-                <label >Movimientos</label>
-                <input type={'text'} name={'moves'}  onChange={handleChange} />
-                <output id="outspeed"  >{form.speed}</output>
-                {error.speed && <p>{error.speed}</p>}
-                </p>
-                <hr/>
-                <p> id de los Tipos Selecionados</p>
-                <>{typeSelect.length?  typeSelect.map((e,index)=> {
-                    return (
-                        <div key={index}>
-                        <label key={index} >{e.type}, </label>
-                        <button name="type" value={e.id} onClick={deleteType} >X</button>
-                        </div>
-                    )
-                    }) : <p>Ninguno</p>} </>
                 
                 <hr/>
-                {   // al selecionar el tipo renderizaria sus movimientos correspondientes para podes ser seleccionados, debe tener un maximo de movimientos en total
-                    // seran asociados correspondientemente con el pokemon en la ruta post 
-                    types.map((e, index)=> {
-                        return  (<>
-                            <span key={index}> {e.name}
-                            <input  name='type' type={'radio'} value={e.id} onChange={handleChange}/>
-                            </span>
-                            <br/>
-                            </>
-                            )}) 
-                }
+                <p> id de los Tipos Selecionados</p>
+                <>{
+                    typeSelect.length?  typeSelect.map((e,index)=> {
+                        return (
+                            <div key={index}>
+                            <label key={index} >{e.type}, </label>
+                            <button name="type" value={e.id} onClick={deleteSelected} >X</button>
+                            </div>
+                        )
+                        }) : <p>Ninguno</p>
+                    } 
+                </>
+                <hr/>
+                <>
+                    {   // al selecionar el tipo renderizaria sus movimientos correspondientes para podes ser seleccionados, debe tener un maximo de movimientos en total
+                        // seran asociados correspondientemente con el pokemon en la ruta post 
+                        types.length ? types.map((e, index)=> {
+                            return  (<>
+                                <span key={index}> 
+                                <button  name='type' value={e.id} onClick={handleChange}>{e.name} </button>
+                                </span>
+                                <br/>
+                                </>
+                                )}) : <></>
+                    }
+                </>
                 <hr/>
                 <p>Movimientos</p>
+                {
+                    moveSelect.map(e=>{
+                        return(
+                            <span>{e.move}
+                                <button name='move' value={e.id} onClick={deleteSelected}>X</button>
+                            </span>
+                        )
+                    })
+                }
                 <hr/>
                 {
                     moves.filter(b =>{
@@ -266,7 +305,9 @@ export default function Post(){
                     }).map(e=>{
                         return (
                             <div key={e.id}>
-                                <span>{e.move}</span>
+                                <span>
+                                    <button name='move' value={e.id} onClick={handleChange}>{e.move}</button>
+                                </span>
                             </div>
                         )
                     })

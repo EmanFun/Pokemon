@@ -39,7 +39,6 @@ conn.sync({ force: true }).then(async () => {
     height: 20,
     weight: 5,
     image: 'https://cdn.theorg.com/d3119e0e-8202-4034-85ce-d0356382515e_thumb.jpg',
-    moves: 'n' 
 
   })
   let type = await Type.findOne({
