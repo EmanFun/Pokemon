@@ -140,7 +140,10 @@ export default function Post(){
     const handleSubmit = (event)=>{
        
         event.preventDefault()
-        let data = {...form}
+        let data = {
+            ...form,
+            type: Array.from(form.type)
+        }
         dispatch(actions.postPokemon(data,history))
         setForm({
             name: '',
@@ -154,7 +157,7 @@ export default function Post(){
             moves: '',
             type: new Set()
         })
-
+        console.log(data)
     }
     
     const back = (e)=>{
@@ -162,9 +165,9 @@ export default function Post(){
         history.push('/Main');
         
     }
-    console.log(form.type)
-    console.log(movesRender)
-    console.log(typeSelect)
+    //console.log(form)
+    //console.log(movesRender)
+    //console.log(typeSelect)
     
     return (
         <div>

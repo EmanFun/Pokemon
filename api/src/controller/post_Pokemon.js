@@ -10,9 +10,8 @@ const post_Pokemon = Router();
 post_Pokemon.post('/',async (req, res, next)=>{
 
     const {name, type, hp, attack, defense, speed, height, weight, moves} = req.body;
-    let types = Array.from(type)
     console.log(req.body)
-    console.log(types)
+    console.log(type)
     try {
         
         let [instance, created] = await Pokemon.findOrCreate({
@@ -34,7 +33,10 @@ post_Pokemon.post('/',async (req, res, next)=>{
         
         if(created){
 
-            instance.addType(types)
+            type.forEach(e=>{
+
+                instance.addType([e])
+            })
 
             res.send('El pokemon a sido creado con exito.')
         }else{

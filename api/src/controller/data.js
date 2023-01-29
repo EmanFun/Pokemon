@@ -66,15 +66,12 @@ module.exports = {
             
                 }).then(arr =>{ 
                
-                    console.log(arr)
+                    //console.log(arr)
                     arr.forEach(async(object, indexArr)=>{
                         
                         let instance = await Type.findOne({
                             where:{
-                                [Op.or]: [
-                                    { id: object.id },
-                                    { name: object.type }
-                                    ]
+                                name: object.type
                             }
                         })
 

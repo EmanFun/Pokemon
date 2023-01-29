@@ -87,7 +87,7 @@ route_Pokemon.get('/',async (req, res, next)=>{
             if(created){
 
                 Pokemon.findAll({
-                    attributes: ['id', 'name','image'],
+                    attributes: ['id', 'name','image','attack'],
                     include: Type,
                 }).then(response=>{
                     res.send(response)
