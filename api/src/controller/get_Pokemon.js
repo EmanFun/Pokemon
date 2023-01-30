@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const axios = require('axios');
 
-const {Pokemon, Type} = require('../db');
+const {Pokemon, Type, Move} = require('../db');
 const e = require('express');
 
 
@@ -54,7 +54,7 @@ router_Pokemon.get('/:id',async (req, res, next)=>{
         }else{
 
             let bd = await Pokemon.findByPk(id,{
-                include: Type,
+                include: [Type,Move]
             });
             console.log(bd)
             let pokemon = {
@@ -67,7 +67,8 @@ router_Pokemon.get('/:id',async (req, res, next)=>{
                 height: bd.height,
                 weight: bd.weight,
                 image: bd.image,
-                types: bd.types.map(e=> e.name)
+                types: bd.types.map(e=> e.name),
+                moves: bd.moves.map(b=> b.name)
             }
             
             console.log()

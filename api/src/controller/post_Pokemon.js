@@ -1,4 +1,5 @@
 const {Router} = require('express');
+
 const {Pokemon, Type} = require('../db');
 
 
@@ -9,7 +10,7 @@ const post_Pokemon = Router();
 
 post_Pokemon.post('/',async (req, res, next)=>{
 
-    const {name, type, hp, attack, defense, speed, height, weight, moves} = req.body;
+    const {name, type, hp, attack, defense, speed, height, weight, move} = req.body;
     console.log(req.body)
     console.log(type)
     try {
@@ -27,7 +28,6 @@ post_Pokemon.post('/',async (req, res, next)=>{
                 speed: speed,
                 height: height,
                 weight: weight,
-                moves: moves,
             }
         });
         
@@ -36,6 +36,9 @@ post_Pokemon.post('/',async (req, res, next)=>{
             type.forEach(e=>{
 
                 instance.addType([e])
+            })
+            move.forEach(b=>{
+                instance.addMove([b])
             })
 
             res.send('El pokemon a sido creado con exito.')

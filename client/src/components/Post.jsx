@@ -158,7 +158,8 @@ export default function Post(){
 
                 return{
                     id: e,
-                    move: moves[e-1].move
+                    move: moves[e-1].move,
+                    type: moves[e-1].ofType
                 }
             }))
         }
@@ -172,7 +173,8 @@ export default function Post(){
         event.preventDefault()
         let data = {
             ...form,
-            type: Array.from(form.type)
+            type: Array.from(form.type),
+            move: Array.from(form.move)
         }
         dispatch(actions.postPokemon(data,history))
         setForm({
@@ -184,7 +186,7 @@ export default function Post(){
             height: '',
             weight: '',
             image: '',
-            moves: '',
+            move: new Set(),
             type: new Set()
         })
         console.log(data)
@@ -196,8 +198,8 @@ export default function Post(){
         
     }
     console.log(form.type, form.move)
-    console.log(moves)
-    //console.log(movesRender)
+    //console.log(moves)
+    console.log(moveSelect)
     //console.log(typeSelect)
     
     return (
@@ -284,7 +286,7 @@ export default function Post(){
                 {
                     moveSelect.map(e=>{
                         return(
-                            <span>{e.move}
+                            <span key={e.id}>{e.move}
                                 <button name='move' value={e.id} onClick={deleteSelected}>X</button>
                             </span>
                         )
@@ -297,7 +299,8 @@ export default function Post(){
                         let match = false
             
                         typeSelect.forEach(e => {
-                             if(e.type === b.ofType){
+
+                             if(e.type === b.ofType && !form.move.has(`${b.id}`)){
                                 match = true
                              }
                         })
