@@ -45,7 +45,7 @@ router_Pokemon.get('/:id',async (req, res, next)=>{
                             return e.version_group.name === "red-blue" 
                         }))return `${e.move.name} - Metodo de Aprendizaje - ${method}`
                         
-                    }).filter(e=> e !== undefined)
+                    }).filter(e=> e !== undefined && e.endsWith('level-up') )
                 }
                 res.send(result)
 

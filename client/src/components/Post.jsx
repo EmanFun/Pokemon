@@ -72,6 +72,7 @@ function validation(value, name, error, setError){
 }
 
 
+
 export default function Post(){
     
     const allTypes = useSelector(state=> state.types)
@@ -99,27 +100,45 @@ export default function Post(){
     const [typeSelect, setTypeSelect] = useState([])
 
     const [moveSelect , setMoveSelect] = useState([])
-
+    
     const [error, setError] = useState({})
-
+    
     useEffect(()=>{
 
-       
-
+        
+        
         return ()=>{
             dispatch(actions.fetchPokemons())
         }
         
     },[dispatch])
     
+    let setsValidation = (set, value, name) =>{
+    
+        if(set.size >= 5 && name === 'type'){
+            return setError({
+                ...error,
+                type: "Limite maximo de 5 tipos"
+            })
+        }else if(set.size >= 7 && name === 'move'){
+            return setError({
+                ...error,
+                move: "Limite maximo de 7 movimientos"
+            })
+        }
+        setError({})
+        set.add(value)
+        return set
+    }
+
     
     const handleChange =(e)=>{
-
+        
         e.preventDefault();
     
         setForm({
             ...form,
-            [e.target.name]: e.target.name === 'type' ? form.type.add(e.target.value):  e.target.name === 'move' ? form.move.add(e.target.value) : validation(e.target.value, e.target.name, error, setError) ,
+            [e.target.name]: e.target.name === 'type' ? setsValidation(form.type,e.target.value, e.target.name)|| form.type :  e.target.name === 'move' ? setsValidation(form.move,e.target.value, e.target.name) || form.move  : validation(e.target.value, e.target.name, error, setError) ,
         })
 
         if(e.target.name === 'move'){
@@ -134,7 +153,7 @@ export default function Post(){
 
         } 
 
-        if(e.target.name === 'type'){
+        if(e.target.name === 'type' && form.type.size <=5){
 
             setTypes([...types.filter(e=> !form.type.has(`${e.id}`) )])
             //console.log(types)
@@ -154,23 +173,33 @@ export default function Post(){
         const value = e.target.value
         form[e.target.name].delete(value)
         if(e.target.name === 'move'){
+            setError({
+                ...error,
+                move: ''
+            })
             setMoveSelect([...form.move].map((e) => {
 
                 return{
                     id: e,
                     move: moves[e-1].move,
-                    type: moves[e-1].ofType
                 }
             }))
+        }else{
+
+            setTypes([...allTypes.filter(e=> !form.type.has(`${e.id}`) )])
+            setError({
+                ...error,
+                type: ''
+            })
+            setTypeSelect(typeSelect.filter(e=> e.id !== value))
         }
-        setTypes([...allTypes.filter(e=> !form.type.has(`${e.id}`) )])
-        setTypeSelect(typeSelect.filter(e=> e.id !== value))
         
     }
 
     const handleSubmit = (event)=>{
        
         event.preventDefault()
+        if(Object.keys(error).length !== 0) return alert("Faltan datos por completar") 
         let data = {
             ...form,
             type: Array.from(form.type),
@@ -198,9 +227,10 @@ export default function Post(){
         
     }
     console.log(form.type, form.move)
-    //console.log(moves)
+    console.log(form)
     console.log(moveSelect)
-    //console.log(typeSelect)
+    console.log(typeSelect)
+    console.log(error)
     
     return (
         <div>
@@ -267,9 +297,10 @@ export default function Post(){
                         }) : <p>Ninguno</p>
                     } 
                 </>
+                {error.type && <p>{error.type}</p>}
                 <hr/>
                 <>
-                    {   // al selecionar el tipo renderizaria sus movimientos correspondientes para podes ser seleccionados, debe tener un maximo de movimientos en total
+                    {   
                         // seran asociados correspondientemente con el pokemon en la ruta post 
                         types.length ? types.map((e, index)=> {
                             return  (<>
@@ -283,6 +314,7 @@ export default function Post(){
                 </>
                 <hr/>
                 <p>Movimientos</p>
+                <>
                 {
                     moveSelect.map(e=>{
                         return(
@@ -292,6 +324,8 @@ export default function Post(){
                         )
                     })
                 }
+                </>
+                {error.move && <p>{error.move}</p>}
                 <hr/>
                 {
                     moves.filter(b =>{
