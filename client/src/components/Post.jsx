@@ -9,17 +9,17 @@ import * as actions from '../redux/actions';
 
 //Reparar 
 function validation(value, name, error, setError){
-    console.log(value)
+
   
         if(name === 'image' && !/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(value) ){
-            console.log('entro url')
+
             return  setError({
                 ...error,
                 image: 'El Texto no es una URL.'
             })
         }     
         if( (name === 'name' && / /.test(value)) || (name === 'name' && value.length > 12)){
-            console.log('entro name')
+
             return setError({
                 ...error,
                 name: 'El Nombre contiene espacios intermedios o contiene mas de 12 caracteres.'
@@ -27,14 +27,14 @@ function validation(value, name, error, setError){
         }
  
         if (name === 'height' && (value < 1 || value > 20) ){
-            console.log('entro altura')
+
             return setError({
                 ...error,
                 height: 'La Altura se exede de los limites 1 y 20.'
             })
         }
         if(name === 'weight' && (Number(value) < 10 || Number(value)  > 80) ){
-            console.log('entro peso')
+
             return setError({
                 ...error,
                 weight: 'El Peso se exede de los limites 10 y 80.'
@@ -115,10 +115,10 @@ export default function Post(){
     
     let setsValidation = (set, value, name) =>{
     
-        if(set.size >= 5 && name === 'type'){
+        if(set.size >= 3 && name === 'type'){
             return setError({
                 ...error,
-                type: "Limite maximo de 5 tipos"
+                type: "Limite maximo de 3 tipos"
             })
         }else if(set.size >= 7 && name === 'move'){
             return setError({
@@ -150,13 +150,10 @@ export default function Post(){
                     move: moves[e-1].move
                 }
             }))
-
         } 
-
         if(e.target.name === 'type' && form.type.size <=5){
 
             setTypes([...types.filter(e=> !form.type.has(`${e.id}`) )])
-            //console.log(types)
             setTypeSelect([...form.type].map(e => {
                 return{
                     id: e,
@@ -226,11 +223,11 @@ export default function Post(){
         history.push('/Main');
         
     }
-    console.log(form.type, form.move)
-    console.log(form)
-    console.log(moveSelect)
-    console.log(typeSelect)
-    console.log(error)
+    //console.log(form.type, form.move)
+    //console.log(form)
+    //console.log(moveSelect)
+    //console.log(typeSelect)
+    //console.log(error)
     
     return (
         <div>
