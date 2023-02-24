@@ -8,6 +8,28 @@ import {Link} from 'react-router-dom';
 
 
 export default function Home(){
+    //Css
+    const buttonInit = {
+        
+        backgroundColor : 'cyan',
+        height: '150px',
+        width: '150px',
+        borderRadius: '100px',
+        borderColor: 'black',
+    }
+    const linkStyle = {
+        textDecoration: 'none',
+        fontSize: '100%'
+    }
+    
+    const divStyled = {
+        
+    }
+
+
+
+
+
 
     const dispatch = useDispatch();
     //crear un retardo animacion de aprox 10 segundos o lo que dure la peticion request
@@ -29,8 +51,8 @@ export default function Home(){
 
     return (
         <div>
-            <button>
-                <Link to='/Main'>Ingresar</Link>
+            <button  style={buttonInit}>
+                <Link style={linkStyle} to='/Main'>Acceder</Link>
             </button>
         </div>
     )
