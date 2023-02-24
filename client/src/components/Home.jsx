@@ -9,22 +9,29 @@ import {Link} from 'react-router-dom';
 
 export default function Home(){
     //Css
-    const buttonInit = {
-        
+    const buttonInit = { 
         backgroundColor : 'cyan',
         height: '150px',
         width: '150px',
         borderRadius: '100px',
         borderColor: 'black',
+        buttom: '50%'
     }
     const linkStyle = {
         textDecoration: 'none',
-        fontSize: '100%'
+        fontSize: '150%'
     }
     
     const divStyled = {
-        
+        position: 'relative',
+        width: '250px',
+        height: '250px',
+        display : "flex",
+        justifyContent: 'center',
+        alignItems: "center",
+
     }
+
 
 
 
@@ -50,11 +57,15 @@ export default function Home(){
     console.log(store.getState())
 
     return (
-        <div>
-            <button  style={buttonInit}>
-                <Link style={linkStyle} to='/Main'>Acceder</Link>
-            </button>
-        </div>
+
+
+            <div id={'containerButton'} style={divStyled}>
+                <button  style={buttonInit}>
+                    <Link style={linkStyle} to='/Main'>Acceder</Link>
+                </button>
+            </div>
+
+        
     )
 
 
