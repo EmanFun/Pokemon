@@ -1,0 +1,24 @@
+
+.containerButton {
+
+    background-color: black;
+    padding: 5px;
+
+    border-radius: 100px;
+    border-color: black;
+    
+}
+.buttonInit { 
+    background-color: aqua;
+    height: 150px;
+    width: 150px;
+
+    border-radius: 150px;
+    border-color: black;
+
+}
+
+.link{
+    text-decoration: none;
+    font-size: 150%;
+}

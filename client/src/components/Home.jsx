@@ -3,41 +3,13 @@ import * as actions from '../redux/actions';
 import { useDispatch } from 'react-redux';
 import store from '../redux/store';
 import {Link} from 'react-router-dom';
-
+//Css
+import styles from '../Style/Home.module.css'
 
 
 
 export default function Home(){
-    //Css
-    const buttonInit = { 
-        backgroundColor : 'cyan',
-        height: '150px',
-        width: '150px',
-        borderRadius: '100px',
-        borderColor: 'black',
-        buttom: '50%'
-    }
-    const linkStyle = {
-        textDecoration: 'none',
-        fontSize: '150%'
-    }
     
-    const divStyled = {
-        position: 'relative',
-        width: '250px',
-        height: '250px',
-        display : "flex",
-        justifyContent: 'center',
-        alignItems: "center",
-
-    }
-
-
-
-
-
-
-
     const dispatch = useDispatch();
     //crear un retardo animacion de aprox 10 segundos o lo que dure la peticion request
 
@@ -59,9 +31,9 @@ export default function Home(){
     return (
 
 
-            <div id={'containerButton'} style={divStyled}>
-                <button  style={buttonInit}>
-                    <Link style={linkStyle} to='/Main'>Acceder</Link>
+            <div className={styles.containerButton}>
+                <button  className={styles.buttonInit}>
+                    <Link className={styles.link} to='/Main'>Acceder</Link>
                 </button>
             </div>
 
