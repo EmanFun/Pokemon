@@ -5,11 +5,13 @@
     
 }
 .nav{
-    background-color: aliceblue;
+    background-color:blueviolet;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    height: 80px;
     top: 10px;
     padding: 20px;
+    border-radius: 50px;
     /* fallo */
 }
 
@@ -22,7 +24,8 @@
 
 .searchInput{
     height: 30px;
-    border-bottom-left-radius: 16px;
+    width: 125px;
+    border-bottom-left-radius: 13px;
     border-top-left-radius: 16px;
 }
 
@@ -32,4 +35,55 @@
     height: 36px;
     border-top-right-radius: 16px ;
     border-bottom-right-radius: 16px;
+}
+
+
+.orderButton{
+   border-radius: 20px;
+   height: 36px;
+}
+
+.selectAlfaOrder{
+    border-radius: 10px;
+    height: 36px;
+}
+/* agregar estilos a los tag select y sus options, investigar  */
+
+.selectFilters{
+    border-radius: 10px;
+    height: 36px;
+}
+
+.filtersButtons{
+    border-radius: 10px;
+    height: 37px;
+}
+
+.createButton{
+    border-radius: 10px;
+    height: 37px;
+}
+
+.suggestion{
+    position: relative;
+    top: 19px;
+    right: 205px;
+    background-color: brown;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    list-style: none;
+    padding-left: 30px;
+    padding-right: 20px;
+    
+    
+}
+.suggestionButton{
+    background-color: brown;
+    border: hidden;
+    padding-bottom: 5px;
+    color:aliceblue;
+}
+
+.suggestionButton:hover{
+    background-color:black;
 }
