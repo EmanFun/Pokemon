@@ -2,7 +2,8 @@
 
 body {
   margin: 0;
-  height: 60rem;
+
+
   display : flex;
   justify-content: center;
   align-items: center;
@@ -16,6 +17,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root{
+    height: 60rem;
+    width: 90rem;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
