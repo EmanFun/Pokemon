@@ -152,24 +152,23 @@ export default function Main(){
 
                 <article className={styles.options}>
                     <div>
-                        <span>Search </span>
                         <input className={styles.searchInput} id="namePokemon" type={'text'} name={'nombre'} placeholder={'Buscar'} autoComplete={'off'} onChange={searchAutocomplete}/>
                         <button className={styles.searchButton} onClick={search}>Buscar &#128270; </button>
                     </div>
 
-                    <div>
+                    <div >
                         { 
                                 document.getElementById('namePokemon')?.value  ?  <>
                                                     {   // posible cambio a listas
-                                                    suggestion?.find(e=> e.startsWith(searchPokemon) && e.length !== searchPokemon.length) ? <li>
+                                                    suggestion?.find(e=> e.startsWith(searchPokemon) && e.length !== searchPokemon.length) ? <ul className={styles.suggestion}>
 
                                                         {
                                                             searchPokemon ? suggestion?.map((e, index)=>{
-                                                                return e.startsWith(searchPokemon) && e.length !== searchPokemon.length ? <ul key={index}  ><button value={e} onClick={selectPokemonSuggestion} >{e}</button></ul> : <></>
+                                                                return e.startsWith(searchPokemon) && e.length !== searchPokemon.length ? <li   key={index}  ><button className={styles.suggestionButton} value={e} onClick={selectPokemonSuggestion} >{e}</button></li> : <></>
                                                             }) : <></>
                                                         }
 
-                                                    </li> : <></>
+                                                    </ul> : <></>
                                                         
                                                     }   
                                             </>  : <></>
@@ -178,34 +177,32 @@ export default function Main(){
                 </article>
                 <article className={styles.options}>
                     
-                    <span>order </span>
-                    <button onClick={highAttack}>↑Ataque</button>
-                    <button onClick={lowAttack}>↓Ataque</button>
-                    <select name="Alfaoption" required={true} onChange={alfaOrder}>
-                        <option value={'default'}>Elegir</option>
-                        <option value={'A_Z'}>A_Z</option>
-                        <option value={'Z_A'}>Z_A</option>
+                    <button className={styles.orderButton} onClick={highAttack}>↑Ataque</button>
+                    <button className={styles.orderButton} onClick={lowAttack}>↓Ataque</button>
+                    <select className={styles.selectAlfaOrder} name="Alfaoption" required={true} onChange={alfaOrder}>
+                        <option  value={'default'}>Elegir</option>
+                        <option  value={'A_Z'}>A_Z</option>
+                        <option  value={'Z_A'}>Z_A</option>
                     </select>
 
                 </article>
                 <article className={styles.options}>
-                    <span>filters </span>
-                    <select id="types" name="types" onChange={typePokemon}>
+
+                    <select className={styles.selectFilters} id="types" name="types" onChange={typePokemon}>
                         <option value={'default'}>Seleccione un Tipo</option>
                         {
                             types.map((e, index)=> <option key={index} value={e.name}>{e.name}</option> )
                         }
                     </select>
                     <div>
-                        <button onClick={allPokemons}>All Pokemons</button>
-                        <button onClick={db}>DB</button>
-                        <button onClick={api}>API</button>
+                        <button className={styles.filtersButtons} onClick={allPokemons}> All Pokemons </button>
+                        <button className={styles.filtersButtons} onClick={db}> DB </button>
+                        <button className={styles.filtersButtons} onClick={api}> API </button>
                     </div>
                     
                 </article>
                 <article className={styles.options}>
-                    <span>Crear </span>
-                    <Link to={'/Post'}><button>Crear</button></Link>
+                    <Link to={'/Post'}><button className={styles.createButton}>Crear</button></Link>
                 </article>
             </section>
             <section>
