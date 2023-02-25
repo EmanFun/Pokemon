@@ -152,7 +152,7 @@ export default function Main(){
 
                 <article className={styles.options}>
                     <div>
-                        <p>Search</p>
+                        <span>Search </span>
                         <input className={styles.searchInput} id="namePokemon" type={'text'} name={'nombre'} placeholder={'Buscar'} autoComplete={'off'} onChange={searchAutocomplete}/>
                         <button className={styles.searchButton} onClick={search}>Buscar &#128270; </button>
                     </div>
@@ -176,9 +176,9 @@ export default function Main(){
                         }
                     </div>
                 </article>
-                <article>
+                <article className={styles.options}>
                     
-                    <p>order</p>
+                    <span>order </span>
                     <button onClick={highAttack}>↑Ataque</button>
                     <button onClick={lowAttack}>↓Ataque</button>
                     <select name="Alfaoption" required={true} onChange={alfaOrder}>
@@ -188,8 +188,8 @@ export default function Main(){
                     </select>
 
                 </article>
-                <article>
-                    <p>filters</p>
+                <article className={styles.options}>
+                    <span>filters </span>
                     <select id="types" name="types" onChange={typePokemon}>
                         <option value={'default'}>Seleccione un Tipo</option>
                         {
@@ -203,8 +203,8 @@ export default function Main(){
                     </div>
                     
                 </article>
-                <article>
-                    <p>Crear</p>
+                <article className={styles.options}>
+                    <span>Crear </span>
                     <Link to={'/Post'}><button>Crear</button></Link>
                 </article>
             </section>
