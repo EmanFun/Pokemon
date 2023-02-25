@@ -1,0 +1,30 @@
+.nav{
+    row-gap: initial;
+    /* fallo */
+}
+
+.options{
+    grid-column: auto;
+    /* fallo */
+}
+
+.buttonBack{
+    height: 50px;
+    font-size: 15px;
+    border-radius: 25px;
+    
+}
+
+.searchInput{
+    height: 30px;
+    border-bottom-left-radius: 16px;
+    border-top-left-radius: 16px;
+}
+
+.searchButton{
+    position: relative;
+    top: 1px;
+    height: 36px;
+    border-top-right-radius: 16px ;
+    border-bottom-right-radius: 16px;
+}

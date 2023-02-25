@@ -7,7 +7,7 @@ import Card from "./Card";
 
 import * as actions from '../redux/actions';
 
-
+import styles from '../Style/Main.module.css'
 
 
 
@@ -144,34 +144,39 @@ export default function Main(){
 
     return(
         <main>
-            <section>
-            <button onClick={(e) => {
+            <button className={styles.buttonBack} onClick={(e) => {
                     e.preventDefault()
                     history.push('/')
-                }}>inicio</button>
+                }}>◄ Inicio</button>
+            <section className={styles.nav}>
 
-                <div>
-                    <input id="namePokemon" type={'text'} name={'nombre'} placeholder={'Buscar'} autoComplete={'off'} onChange={searchAutocomplete}/>
-                    <button onClick={search}>Buscar</button>
-                    <br></br>
-                   { 
-                        document.getElementById('namePokemon')?.value  ?  <>
-                                            {   // posible cambio a listas
-                                            suggestion?.find(e=> e.startsWith(searchPokemon) && e.length !== searchPokemon.length) ? <li>
+                <article className={styles.options}>
+                    <div>
+                        <p>Search</p>
+                        <input className={styles.searchInput} id="namePokemon" type={'text'} name={'nombre'} placeholder={'Buscar'} autoComplete={'off'} onChange={searchAutocomplete}/>
+                        <button className={styles.searchButton} onClick={search}>Buscar &#128270; </button>
+                    </div>
 
-                                                {
-                                                    searchPokemon ? suggestion?.map((e, index)=>{
-                                                        return e.startsWith(searchPokemon) && e.length !== searchPokemon.length ? <ul key={index}  ><button value={e} onClick={selectPokemonSuggestion} >{e}</button></ul> : <></>
-                                                    }) : <></>
-                                                }
+                    <div>
+                        { 
+                                document.getElementById('namePokemon')?.value  ?  <>
+                                                    {   // posible cambio a listas
+                                                    suggestion?.find(e=> e.startsWith(searchPokemon) && e.length !== searchPokemon.length) ? <li>
 
-                                            </li> : <></>
-                                                
-                                            }   
-                                    </>  : <></>
-                    }
-                </div>
-                <div>
+                                                        {
+                                                            searchPokemon ? suggestion?.map((e, index)=>{
+                                                                return e.startsWith(searchPokemon) && e.length !== searchPokemon.length ? <ul key={index}  ><button value={e} onClick={selectPokemonSuggestion} >{e}</button></ul> : <></>
+                                                            }) : <></>
+                                                        }
+
+                                                    </li> : <></>
+                                                        
+                                                    }   
+                                            </>  : <></>
+                        }
+                    </div>
+                </article>
+                <article>
                     
                     <p>order</p>
                     <button onClick={highAttack}>↑Ataque</button>
@@ -182,8 +187,8 @@ export default function Main(){
                         <option value={'Z_A'}>Z_A</option>
                     </select>
 
-                </div>
-                <div>
+                </article>
+                <article>
                     <p>filters</p>
                     <select id="types" name="types" onChange={typePokemon}>
                         <option value={'default'}>Seleccione un Tipo</option>
@@ -197,11 +202,11 @@ export default function Main(){
                         <button onClick={api}>API</button>
                     </div>
                     
-                </div>
-                <div>
+                </article>
+                <article>
                     <p>Crear</p>
                     <Link to={'/Post'}><button>Crear</button></Link>
-                </div>
+                </article>
             </section>
             <section>
                 <div>
@@ -245,8 +250,8 @@ export default function Main(){
                         </div>
                     :  <p>LOADING..</p>
                 }
-                <button onClick={prev}>Anterior</button>
-                <button onClick={next}>Siguiente</button>
+                <button onClick={prev}>◄ Anterior</button>
+                <button onClick={next}>Siguiente ►</button>
                 
                 
             </section>
