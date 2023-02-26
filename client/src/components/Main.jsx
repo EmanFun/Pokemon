@@ -143,7 +143,7 @@ export default function Main(){
     }
 
     return(
-        <main>
+        <main className={styles.containerMain}>
             <button className={styles.buttonBack} onClick={(e) => {
                     e.preventDefault()
                     history.push('/')
@@ -151,10 +151,10 @@ export default function Main(){
             <section className={styles.nav}>
 
                 <article className={styles.options}>
-                    <div>
+
+                <div className={styles.searchContainer}>
                         <input className={styles.searchInput} id="namePokemon" type={'text'} name={'nombre'} placeholder={'Buscar'} autoComplete={'off'} onChange={searchAutocomplete}/>
                         <button className={styles.searchButton} onClick={search}>Buscar &#128270; </button>
-                    </div>
 
                     <div >
                         { 
@@ -174,6 +174,7 @@ export default function Main(){
                                             </>  : <></>
                         }
                     </div>
+                </div>
                 </article>
                 <article className={styles.options}>
                     
@@ -189,9 +190,9 @@ export default function Main(){
                 <article className={styles.options}>
 
                     <select className={styles.selectFilters} id="types" name="types" onChange={typePokemon}>
-                        <option value={'default'}>Seleccione un Tipo</option>
+                        <option  value={'default'}>Seleccione un Tipo</option>
                         {
-                            types.map((e, index)=> <option key={index} value={e.name}>{e.name}</option> )
+                            types.map((e, index)=> <option  key={index} value={e.name}>{e.name}</option> )
                         }
                     </select>
                     <div>
@@ -204,11 +205,11 @@ export default function Main(){
                 <article className={styles.options}>
                     <Link to={'/Post'}><button className={styles.createButton}>Crear</button></Link>
                 </article>
-            </section>
-            <section>
+            </section >
+            <section className={styles.baseSelected}>
                 <div>
                     {
-                        typeSelect !== 'default' ? <span><h3 style={{display: 'inline'}}>{typeSelect}</h3></span> : <></>
+                        typeSelect !== 'default' ? <span className={styles.typeSpanSelected} ><h3 style={{display: 'inline'}}>{typeSelect}</h3></span> : <></>
                     }
                     {
                         selectFrom ? <span><h3 style={{display: 'inline'}}>{selectFrom}</h3></span> : <></>
@@ -216,11 +217,11 @@ export default function Main(){
                     
                 </div>
             </section>
-            <section>
+            <section className={styles.pagination}>
                 
                 {
-                   pokemonName.length === 0  ?  pagination.map((e,index)=><button key={index}>
-                        <Link to={`/Detail/${e.id}`}>
+                   pokemonName.length === 0  ?  pagination.map((e,index)=><button className={styles.buttonCard} key={index}>
+                        <Link className={styles.link} to={`/Detail/${e.id}`}>
                             <Card 
                             id={e.id} 
                             name={e.name} 
@@ -233,8 +234,8 @@ export default function Main(){
                         </button>) : typeof pokemonName === 'object' ? 
                         
                         <div>
-                        <button>
-                            <Link to={`/Detail/${pokemonName.id}`}>
+                        <button className={styles.buttonCard}>
+                            <Link className={styles.link} to={`/Detail/${pokemonName.id}`}>
                                 <Card
                                 id={pokemonName.id}
                                 name={pokemonName.name}
@@ -247,10 +248,12 @@ export default function Main(){
                         </div>
                     :  <p>LOADING..</p>
                 }
-                <button onClick={prev}>◄ Anterior</button>
-                <button onClick={next}>Siguiente ►</button>
                 
                 
+            </section>
+            <section className={styles.containerPrev_Next}>
+                <button className={styles.buttonPrev_Next} onClick={prev}>◄ Anterior</button>
+                <button className={styles.buttonPrev_Next} onClick={next}>Siguiente ►</button>
             </section>
         </main>
     )

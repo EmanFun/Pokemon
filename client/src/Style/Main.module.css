@@ -1,3 +1,11 @@
+.containerMain{
+    margin: 25px;
+    height: 55rem;
+    background-color: fuchsia;
+    opacity: 0.8;
+    border-radius: 25px;
+}
+
 .buttonBack{
     height: 50px;
     font-size: 15px;
@@ -21,7 +29,9 @@
     display: flex;
 }
 
-
+.searchContainer{
+    padding: 1px;
+}
 .searchInput{
     height: 30px;
     width: 125px;
@@ -37,9 +47,35 @@
     border-bottom-right-radius: 16px;
 }
 
+.suggestion{
+    position: relative;
+    bottom: 16px;
+    background-color: brown;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 5px;
+    list-style: none;
+    width: 90px;
+    left: 3px;
+
+    
+    
+}
+.suggestionButton{
+    background-color: brown;
+    border: hidden;
+    padding-bottom: 5px;
+    color:aliceblue;
+}
+
+.suggestionButton:hover{
+    background-color:black;
+    border-radius: 10px;
+    padding: 2px;
+}
 
 .orderButton{
-   border-radius: 20px;
+    border-radius: 20px;
    height: 36px;
 }
 
@@ -54,6 +90,7 @@
     height: 36px;
 }
 
+
 .filtersButtons{
     border-radius: 10px;
     height: 37px;
@@ -64,26 +101,52 @@
     height: 37px;
 }
 
-.suggestion{
-    position: relative;
-    top: 19px;
-    right: 205px;
-    background-color: brown;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    list-style: none;
-    padding-left: 30px;
-    padding-right: 20px;
-    
-    
+.baseSelected{
+    margin: 25px 0px 25px 0px;
+    border: 2px;
+    border-color: black;
+    border-style: dashed;
+    border-radius: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+
 }
-.suggestionButton{
-    background-color: brown;
-    border: hidden;
-    padding-bottom: 5px;
-    color:aliceblue;
+.typeSpanSelected{
+    padding-right: 20px;
+    text-transform: capitalize;
 }
 
-.suggestionButton:hover{
-    background-color:black;
+.pagination{
+    margin: 30px;
+    height: 50%;
+    border: 5px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.buttonCard{
+    border-style: hidden;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.7);
+
+}
+.link{
+    text-decoration: none;
+}
+
+.containerPrev_Next{
+    margin: 25px;
+    display: flex;
+    justify-content: space-between; 
+
+}
+
+.buttonPrev_Next{
+    height: 35px;
+    
+
+
 }
