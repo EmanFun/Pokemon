@@ -1,8 +1,11 @@
 .containerMain{
-    margin: 25px;
+    margin: 20px;
     height: 50rem;
+    border: 1cm;
+    border-color: black;
+    padding: 5px;
     background-color: fuchsia;
-    opacity: 0.8;
+
     border-radius: 25px;
 }
 
