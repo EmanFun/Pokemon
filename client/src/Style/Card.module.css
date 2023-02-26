@@ -9,11 +9,16 @@
 
 .cardContainer:hover{
     width: 150px;
-    height: 25rem;
+    height: 23rem;
+    border-radius: 40px;
+    font-size: 25px;
+    
 }
 
 .id{
-
+    position: relative;
+    top: 15px;
+    height: 10px;
 }
 
 .pokeImage{
@@ -24,14 +29,15 @@
 .pokeImage:hover{
     height: 150px;
     width: 150px;
+    border-radius: 15px;
 }
 
 .name{
     text-transform: capitalize;
+    height: 30px;
+
 }
-.name:hover{
-    font-size: 25px;
-}
+
 
 .types{
     list-style: none;
@@ -39,14 +45,12 @@
     right: 20px;
     text-decoration: none;
     text-transform: capitalize;
+    height: 30px;
 }
-.types:hover{
-    font-size: 25px;
-}
+
 
 .attackPoints{
     font-size: 1rem;
-}
-.attackPoints:hover{
-    font-size: 1.5rem;
+    height: 30px;
+    margin: 0;
 }
