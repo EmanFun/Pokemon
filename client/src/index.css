@@ -9,7 +9,7 @@ body {
   align-items: center;
 
 
-  background-color:red;
+  
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -18,8 +18,11 @@ body {
 }
 
 #root{
-    height: 60rem;
-    width: 90rem;
+    height: 58rem;
+    width: 95rem;
+    background-color:red;
+    border: 3px black solid;
+    
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
