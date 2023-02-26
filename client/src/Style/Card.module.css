@@ -1,0 +1,52 @@
+.cardContainer{
+    background-color: aliceblue;
+    height: 20rem;
+    border: 5px;
+    border-color: black;
+    border-radius:25px;
+    
+}
+
+.cardContainer:hover{
+    width: 150px;
+    height: 25rem;
+}
+
+.id{
+
+}
+
+.pokeImage{
+    height: 100px;
+    width: 100px;   
+}
+
+.pokeImage:hover{
+    height: 150px;
+    width: 150px;
+}
+
+.name{
+    text-transform: capitalize;
+}
+.name:hover{
+    font-size: 25px;
+}
+
+.types{
+    list-style: none;
+    position: relative;
+    right: 20px;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+.types:hover{
+    font-size: 25px;
+}
+
+.attackPoints{
+    font-size: 1rem;
+}
+.attackPoints:hover{
+    font-size: 1.5rem;
+}
