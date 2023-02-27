@@ -1,0 +1,83 @@
+.containerDetail{
+    margin: 25px;
+    text-transform: capitalize;
+}
+
+.detailCard{
+    background-color: beige;
+    border: 3px skyblue solid;
+    height: 53rem;   
+    border-radius: 25px;
+}
+
+
+
+.title{
+    background-color: aqua;
+    border: 2px skyblue solid;
+    padding: 5px;
+    border-radius: 50%;
+}
+.image{
+    height: 400px;
+    width: 400px;
+}
+.titleImage{
+    display: grid;
+    place-items: center;
+
+}
+
+.divProps , .containerMovesAndType{
+    
+    margin: 2px;
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    
+}
+.containerMovesAndType{
+    background-color: aqua;
+    border: 5px skyblue solid;
+    border-radius: 15px;
+}
+.props{
+    background-color: aqua;
+    border: 2px skyblue solid;
+    padding: 5px;
+    border-radius: 50%;
+    
+}
+.lists{
+   list-style: none; 
+   padding: 0;
+   
+}
+.listItem{
+    margin: 2px;
+    font-size: 1rem;
+    
+}
+
+.type{
+    padding-bottom: 8px;
+}
+
+.backButton{
+    background-color: aqua;
+    font-weight: bold;
+    border: 1px skyblue solid;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 25px;
+    height: 40px;
+}
+
+.loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: aqua;
+    border: 13 skyblue solid;
+    
+
+}
