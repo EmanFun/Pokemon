@@ -1,10 +1,10 @@
 .containerMain{
-    margin: 20px;
-    height: 50rem;
-    border: 3px black solid;
-    border-color: black;
+    margin: 25px;
+    height: 53rem;
+    border: 3px skyblue solid;
+
     padding: 5px;
-    background-color: fuchsia;
+    background-color: beige;
 
     border-radius: 25px;
 }
@@ -13,16 +13,18 @@
     height: 50px;
     font-size: 15px;
     border-radius: 25px;
-    
+    border: 2px skyblue solid;
+    background-color: aqua;
 }
 .nav{
-    background-color:blueviolet;
+    background-color:cornflowerblue;
     display: flex;
     justify-content: space-around;
     height: 80px;
     top: 10px;
     padding: 20px;
     border-radius: 50px;
+    
     /* fallo */
 }
 
@@ -40,10 +42,14 @@
     width: 125px;
     border-bottom-left-radius: 13px;
     border-top-left-radius: 16px;
+    background-color: aqua;
+    border: 2px skyblue solid;
 }
 
 .searchButton{
     position: relative;
+    background-color: aqua;
+    border: 2px skyblue solid;
     top: 1px;
     height: 36px;
     border-top-right-radius: 16px ;
@@ -53,7 +59,8 @@
 .suggestion{
     position: relative;
     bottom: 16px;
-    background-color: brown;
+    background-color: aqua;
+    border: 2px skyblue solid;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     border-top-left-radius: 5px;
@@ -65,24 +72,30 @@
     
 }
 .suggestionButton{
-    background-color: brown;
+    color: black;
+    background-color: skyblue;
+    border-radius: 50%;
     border: hidden;
     padding-bottom: 5px;
-    color:aliceblue;
+
 }
 
 .suggestionButton:hover{
-    background-color:black;
+    background-color:orange;
     border-radius: 10px;
     padding: 2px;
 }
 
 .orderButton{
+    background-color: aqua;
+    border: 2px skyblue solid;
     border-radius: 20px;
-   height: 36px;
+    height: 36px;
 }
 
 .selectAlfaOrder{
+    background-color: aqua;
+    border: 2px skyblue solid;
     border-radius: 10px;
     height: 36px;
 }
@@ -95,11 +108,15 @@
 
 
 .filtersButtons{
+    background-color: aqua;
+    border: 2px skyblue solid;
     border-radius: 10px;
     height: 37px;
 }
 
 .createButton{
+    background-color: aqua;
+    border: 2px skyblue solid;
     border-radius: 10px;
     height: 37px;
 }
@@ -107,10 +124,10 @@
 .baseSelected{
     margin: 25px 0px 25px 0px;
     border: 2px;
-    border-color: black;
-    border-style: dashed;
+    border-color: skyblue;
+    border-style: solid;
     border-radius: 100%;
-    background-color: white;
+    background-color: aqua;
     display: flex;
     justify-content: space-around;
 
@@ -133,7 +150,8 @@
 .buttonCard{
     border-style: hidden;
     border-radius: 50px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: skyblue;
+    border: 2px orange solid;
 
 }
 .link{
@@ -145,33 +163,36 @@
 
 .containerPrev_Next{
     margin: 25px;
-
+    background-color: cornflowerblue;
+    border: 2px skyblue solid;
+    height: auto;
     display: flex;
     justify-content: space-between; 
-
 }
 
 .buttonPrev{
+    background-color: aqua;
+    border: 2px skyblue solid;
     height: 40px;
     border-radius: 10px;
 }
 .buttonNext{
+    background-color: aqua;
+    border: 2px skyblue solid;
     height: 40px;
     border-radius: 10px;
 }
-.buttonPrev:hover{
+.buttonPrev:hover {
    position: relative;
-    bottom: 10px;
-    right:  10px;
     height: 75px;
     width: 100px;
     font-size: 15px;
-    margin: 10px;
+
 }
 .buttonNext:hover{
     position: relative;
-    bottom: 10px;
-    left: 10px;
+
+
     height: 75px;
     width: 100px;
     font-size: 15px;
