@@ -1,18 +1,24 @@
 
 .containerButton {
-
-    background-color: black;
+    margin: 25px;
+    height: 48rem;
+    background-color: beige;
+    border: 3px skyblue solid;
     padding: 5px;
-
-    border-radius: 100px;
+    border-radius: 25px;
     border-color: black;
-    
+  
 }
 .buttonInit { 
+    position: absolute;
+    top: 37%;
+    left: 37%;
+
+
     background-color: aqua;
     height: 150px;
     width: 150px;
-
+    border: 4px skyblue solid;
     border-radius: 150px;
     border-color: black;
 
