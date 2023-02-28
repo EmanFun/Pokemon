@@ -6,7 +6,7 @@
 .detailCard{
     background-color: beige;
     border: 3px skyblue solid;
-    height: 53rem;   
+    height: 48.6rem;   
     border-radius: 25px;
 }
 
@@ -15,12 +15,13 @@
 .title{
     background-color: aqua;
     border: 2px skyblue solid;
+    margin: 0;
     padding: 5px;
     border-radius: 50%;
 }
 .image{
-    height: 400px;
-    width: 400px;
+    height: 350px;
+    width: 350px;
 }
 .titleImage{
     display: grid;
