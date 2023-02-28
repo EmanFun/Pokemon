@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import style from '../Style/Post.module.css'
 
 import * as actions from '../redux/actions';
 
@@ -230,73 +231,80 @@ export default function Post(){
     //console.log(error)
     
     return (
-        <div>
+        <div className={style.containerForm} >
         <button onClick={back}>Volver</button>
-            <form onSubmit={handleSubmit}>
-                <p>
-                    <label>Nombre</label>
-                    <input type={'text'} name={'name'}  onChange={handleChange}/>
-                    {error.name && <p>{error.name}</p>  }
-                </p>
+            <form className={style.form} onSubmit={handleSubmit}>
+                <div className={style.containerInputOne}>
 
-                <p>
-                    <label>Imagen</label>
-                    <input type={'url'} name={'image'}  onChange={handleChange}/>
-                    <img src={`${form.image}`} height='60px' width={'60px'} alt={'Imagen aportada'}></img>
-                    {error.image && <p>{error.image}</p>}
-                </p>
-                <p>
-                    <label>Altura</label>
-                    <input type={'range'} name={'height'}  step={0.1} defaultValue={1} onChange={handleChange}/>
-                    <output>{form.height}</output>
-                    {error.height && <p>{error.height}</p>}
-                </p>
-                <p>
-                    <label>Peso</label>
-                    <input type={'range'} name={'weight'}  step={0.1} defaultValue={1} onChange={handleChange}/>
-                    <output>{form.weight}</output>
-                    {error.weight && <p>{error.weight}</p>}
-                </p>
-                <p>
-                    <label>Puntos de vida</label>
-                    <input type={'range'} name={'hp'}  step={1} defaultValue={1} onChange={handleChange}/>
-                    <output>{form.hp}</output>
-                    {error.hp && <p>{error.hp}</p>}
-                </p>
-                <p>
-                    <label>Ataque</label>
-                    <input type={'range'} name={'attack'}  step={1} defaultValue={1} onChange={handleChange}/>
-                    <output>{form.attack}</output>
-                    {error.attack && <p>{error.attack}</p>}
-                </p>
-                <p>
-                    <label>Defensa</label>
-                    <input type={'range'} name={'defense'}step={1} defaultValue={1} onChange={handleChange}/>
-                    <output>{form.defense}</output>
-                    {error.defense && <p>{error.defense}</p>}
-                </p>
-                <p>
-                    <label >Velocidad</label>
-                    <input type={'range'} name={'speed'}  step={1} defaultValue={1} onChange={handleChange} />
-                    {/*{error.speed && <p>{error.speed}</p>}*/}
-                </p>
-                
+                    <span>
+                        <label className={style.labelInput}>Nombre</label>
+                        <input type={'text'} name={'name'}  onChange={handleChange}/>
+                        {error.name && <p className={style.errorSpan}>{error.name}</p>  }
+                    </span>
+
+                    <span>
+                        <label className={style.labelInput}>Imagen</label>
+                        <input type={'url'} name={'image'}  onChange={handleChange}/>
+                        <img className={style.urlImage} src={`${form.image}`} height='60px' width={'60px'} alt={'Imagen aportada'}></img>
+                        {error.image && <p className={style.errorSpan}>{error.image}</p>}
+                    </span>
+                </div>
+                    <hr/>
+                <div className={style.containerInputTwo}>
+                    <span>
+                        <label className={style.labelInput}>Altura</label>
+                        <input type={'range'} name={'height'}  step={0.1} defaultValue={1} onChange={handleChange}/>
+                        <output>{form.height}</output>
+                        {error.height && <p className={style.errorSpan}>{error.height}</p>}
+                    </span>
+                    <span>
+                        <label className={style.labelInput}>Peso</label>
+                        <input type={'range'} name={'weight'}  step={0.1} defaultValue={1} onChange={handleChange}/>
+                        <output>{form.weight}</output>
+                        {error.weight && <p className={style.errorSpan}>{error.weight}</p>}
+                    </span>
+                    <span>
+                        <label className={style.labelInput}>Puntos de vida</label>
+                        <input type={'range'} name={'hp'}  step={1} defaultValue={1} onChange={handleChange}/>
+                        <output>{form.hp}</output>
+                        {error.hp && <p className={style.errorSpan}>{error.hp}</p>}
+                    </span>
+                    <span>
+                        <label className={style.labelInput}>Ataque</label>
+                        <input type={'range'} name={'attack'}  step={1} defaultValue={1} onChange={handleChange}/>
+                        <output>{form.attack}</output>
+                        {error.attack && <p className={style.errorSpan}>{error.attack}</p>}
+                    </span>
+                    <span>
+                        <label className={style.labelInput}>Defensa</label>
+                        <input type={'range'} name={'defense'}step={1} defaultValue={1} onChange={handleChange}/>
+                        <output>{form.defense}</output>
+                        {error.defense && <p className={style.errorSpan}>{error.defense}</p>}
+                    </span>
+                    <span>
+                        <label className={style.labelInput} >Velocidad</label>
+                        <input type={'range'} name={'speed'}  step={1} defaultValue={1} onChange={handleChange} />
+                        {error.speed && <p className={style.errorSpan}>{error.speed}</p>}
+                    </span>
+                </div>
                 <hr/>
-                <p> id de los Tipos Selecionados</p>
-                <>{
-                    typeSelect.length?  typeSelect.map((e,index)=> {
-                        return (
-                            <div key={index}>
-                            <label key={index} >{e.type}, </label>
-                            <button name="type" value={e.id} onClick={deleteSelected} >X</button>
-                            </div>
-                        )
+                <div className={style.typesSelected}>
+                    <span className={style.labelSpecial}> id de los Tipos Selecionados</span>
+                    <>{
+                        typeSelect.length?  typeSelect.map((e,index)=> {
+                            return (
+                                <div key={index}>
+                                <label key={index} >{e.type}, </label>
+                                <button name="type" value={e.id} onClick={deleteSelected} >X</button>
+                                </div>
+                            )
                         }) : <p>Ninguno</p>
                     } 
-                </>
-                {error.type && <p>{error.type}</p>}
+                    </>
+                </div>
+                {error.type && <p className={style.errorSpan}>{error.type}</p>}
                 <hr/>
-                <>
+                <div className={style.selectedOfTypes}>
                     {   
                         // seran asociados correspondientemente con el pokemon en la ruta post 
                         types.length ? types.map((e, index)=> {
@@ -308,45 +316,46 @@ export default function Post(){
                                 </>
                                 )}) : <></>
                     }
-                </>
+                </div>
                 <hr/>
-                <p>Movimientos</p>
-                <>
-                {
-                    moveSelect.map(e=>{
-                        return(
-                            <span key={e.id}>{e.move}
-                                <button name='move' value={e.id} onClick={deleteSelected}>X</button>
-                            </span>
-                        )
-                    })
-                }
-                </>
-                {error.move && <p>{error.move}</p>}
-                <hr/>
-                {
-                    moves.filter(b =>{
-            
-                        let match = false
-            
-                        typeSelect.forEach(e => {
-
-                             if(e.type === b.ofType && !form.move.has(`${b.id}`)){
-                                match = true
-                             }
-                        })
-                        return match
-                    }).map(e=>{
-                        return (
-                            <div key={e.id}>
-                                <span>
-                                    <button name='move' value={e.id} onClick={handleChange}>{e.move}</button>
+                <span className={style.labelInput}>Movimientos</span>
+                <div className={style.movesSelected}>
+                    {
+                        moveSelect.map(e=>{
+                            return(
+                                <span key={e.id}>{e.move}
+                                    <button name='move' value={e.id} onClick={deleteSelected}>X</button>
                                 </span>
-                            </div>
-                        )
-                    })
-                }
+                            )
+                        })
+                    }
+                </div>
+                {error.move && <p className={style.errorSpan}>{error.move}</p>}
+                <hr/>
+                <div className={style.selectedOfMoves}>
+                    {
+                        moves.filter(b =>{
+                
+                            let match = false
+                            
+                            typeSelect.forEach(e => {
 
+                                if(e.type === b.ofType && !form.move.has(`${b.id}`)){
+                                    match = true
+                                }
+                            })
+                            return match
+                        }).map(e=>{
+                            return (
+                                <div key={e.id}>
+                                    <span>
+                                        <button name='move' value={e.id} onClick={handleChange}>{e.move}</button>
+                                    </span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
                 <input type={'submit'} value={'Crear'}/>
 
             </form>
