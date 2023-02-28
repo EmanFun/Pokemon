@@ -1,11 +1,9 @@
 .containerMain{
     margin: 25px;
-    height: 53rem;
+    height: 48rem;
     border: 3px skyblue solid;
-
     padding: 5px;
     background-color: beige;
-
     border-radius: 25px;
 }
 
