@@ -2,12 +2,15 @@
 
 body {
   margin: 0;
-
-
   display : flex;
   justify-content: center;
   align-items: center;
+  background-image:  url('../public/516442d1d96c2e7e0d95c19f46bdd570--pokemon-trees.jpg') ;
 
+  /* //animation: background 4s linear infinite ;
+    la imagen de fondo debe tener un movimiento lineal infinito 
+  */
+  
 
   
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -17,11 +20,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* @keyframes background{
+  0% {
+    margin-left: 0;
+  }
+  15%{
+    margin-left: -50%;
+  }
+  25%{margin-left: -100%;}
+  45%{margin-left: -150%;}
+
+  50%{margin-left: -200%;}
+  100%{margin-left: -250%}
+
+
+} */
+
 #root{
-    height: 58rem;
-    width: 95rem;
+
+    margin-top: 35px;
+    height: 52rem;
+    width: 92rem;
     background-color:red;
     border: 3px black solid;
+
     
 }
 code {
