@@ -1,0 +1,80 @@
+.containerForm{
+    margin: 25px;
+}
+
+.form{
+    background-color: beige;
+    padding: 15px;
+    height: 45rem;
+    
+}
+
+.containerInputOne{
+    display: grid;
+    justify-content: flex-start;
+    height: 10rem;
+}
+.urlImage{
+    position: absolute;
+    top: 7rem;
+    left: 45%;
+
+    height: 125px;
+    width: 125px;
+    border: 3px skyblue solid;
+}
+
+.containerInputTwo{
+    display: flex;
+    justify-content: space-between;
+
+    padding-top: 2rem;
+}
+
+.typesSelected{
+    display: flex;
+    justify-content: space-between;
+}
+
+.selectedOfTypes{
+    display: flex;
+    justify-content: space-around;
+}
+
+.movesSelected{
+    display: flex;
+    justify-content: center;
+}
+
+.selectedOfMoves{
+    height: 15rem;
+    display: flex;
+    justify-content: center;
+    /* ordenar bien en forma cuadricular los movimientos a seleccionar */
+}
+
+.errorSpan{
+    text-align: center;
+    background-color: orange;
+    border: 1px red solid;
+    border-radius: 15px;
+    padding: 5px;
+    margin: 5px;
+
+    font-size: 14px;
+}
+
+.labelInput{
+    background-color: aqua;
+    border: 2px skyblue solid;
+    border-radius: 25px;
+    padding: 3px;
+    text-transform: capitalize;
+}
+.labelSpecial{
+    background-color: aqua;
+    border: 2px skyblue solid;
+    border-radius: 25px;
+    padding: 13px;
+    text-transform: capitalize;
+}
