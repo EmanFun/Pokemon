@@ -232,7 +232,7 @@ export default function Post(){
     
     return (
         <div className={style.containerForm} >
-        <button onClick={back}>Volver</button>
+        <button className={style.backButton} onClick={back}>Volver</button>
             <form className={style.form} onSubmit={handleSubmit}>
                 <div className={style.containerInputOne}>
 
@@ -251,40 +251,41 @@ export default function Post(){
                 </div>
                     <hr/>
                 <div className={style.containerInputTwo}>
-                    <span>
+                    <span >
                         <label className={style.labelInput}>Altura</label>
-                        <input type={'range'} name={'height'}  step={0.1} defaultValue={1} onChange={handleChange}/>
-                        <output>{form.height}</output>
-                        {error.height && <p className={style.errorSpan}>{error.height}</p>}
+                        <input className={style.input} type={'range'} name={'height'}  step={0.1} defaultValue={1} onChange={handleChange}/>
+                        <output className={ form.height ? style.output : undefined} >{form.height}</output>
+                        {error.height && <p className={style.errorSpanTwo}>{error.height}</p>}
                     </span>
-                    <span>
+                    <span >
                         <label className={style.labelInput}>Peso</label>
-                        <input type={'range'} name={'weight'}  step={0.1} defaultValue={1} onChange={handleChange}/>
-                        <output>{form.weight}</output>
-                        {error.weight && <p className={style.errorSpan}>{error.weight}</p>}
+                        <input className={style.input} type={'range'} name={'weight'}  step={0.1} defaultValue={1} onChange={handleChange}/>
+                        <output className={ form.weight ? style.output : undefined}>{form.weight}</output>
+                        {error.weight && <p className={style.errorSpanTwo}>{error.weight}</p>}
                     </span>
-                    <span>
+                    <span >
                         <label className={style.labelInput}>Puntos de vida</label>
-                        <input type={'range'} name={'hp'}  step={1} defaultValue={1} onChange={handleChange}/>
-                        <output>{form.hp}</output>
-                        {error.hp && <p className={style.errorSpan}>{error.hp}</p>}
+                        <input className={style.input} type={'range'} name={'hp'}  step={1} defaultValue={1} onChange={handleChange}/>
+                        <output className={ form.hp ? style.output : undefined}>{form.hp}</output>
+                        {error.hp && <p className={style.errorSpanTwo}>{error.hp}</p>}
                     </span>
-                    <span>
+                    <span >
                         <label className={style.labelInput}>Ataque</label>
-                        <input type={'range'} name={'attack'}  step={1} defaultValue={1} onChange={handleChange}/>
-                        <output>{form.attack}</output>
-                        {error.attack && <p className={style.errorSpan}>{error.attack}</p>}
+                        <input className={style.input} type={'range'} name={'attack'}  step={1} defaultValue={1} onChange={handleChange}/>
+                        <output className={ form.attack ? style.output : undefined}>{form.attack}</output>
+                        {error.attack && <p className={style.errorSpanTwo}>{error.attack}</p>}
                     </span>
-                    <span>
+                    <span >
                         <label className={style.labelInput}>Defensa</label>
-                        <input type={'range'} name={'defense'}step={1} defaultValue={1} onChange={handleChange}/>
-                        <output>{form.defense}</output>
-                        {error.defense && <p className={style.errorSpan}>{error.defense}</p>}
+                        <input className={style.input} type={'range'} name={'defense'}step={1} defaultValue={1} onChange={handleChange}/>
+                        <output className={ form.defense ? style.output : undefined}>{form.defense}</output>
+                        {error.defense && <p className={style.errorSpanTwo}>{error.defense}</p>}
                     </span>
-                    <span>
+                    <span >
                         <label className={style.labelInput} >Velocidad</label>
-                        <input type={'range'} name={'speed'}  step={1} defaultValue={1} onChange={handleChange} />
-                        {error.speed && <p className={style.errorSpan}>{error.speed}</p>}
+                        <input className={style.input} type={'range'} name={'speed'}  step={1} defaultValue={1} onChange={handleChange} />
+                        <output className={ form.speed ? style.output : undefined}>{form.speed} </output>
+                        {error.speed && <p className={style.errorSpanTwo}>{error.speed}</p>}
                     </span>
                 </div>
                 <hr/>
@@ -293,8 +294,8 @@ export default function Post(){
                     <>{
                         typeSelect.length?  typeSelect.map((e,index)=> {
                             return (
-                                <div key={index}>
-                                <label key={index} >{e.type}, </label>
+                                <div className={style.typeOptionSelect} key={index}>
+                                <label key={index} >{e.type}</label>
                                 <button name="type" value={e.id} onClick={deleteSelected} >X</button>
                                 </div>
                             )
@@ -309,7 +310,7 @@ export default function Post(){
                         // seran asociados correspondientemente con el pokemon en la ruta post 
                         types.length ? types.map((e, index)=> {
                             return  (<>
-                                <span key={index}> 
+                                <span className={style.typeSelect} key={index}> 
                                 <button  name='type' value={e.id} onClick={handleChange}>{e.name} </button>
                                 </span>
                                 <br/>
@@ -318,14 +319,14 @@ export default function Post(){
                     }
                 </div>
                 <hr/>
-                <span className={style.labelInput}>Movimientos</span>
                 <div className={style.movesSelected}>
+                <span className={style.labelInput}>Movimientos</span>
                     {
                         moveSelect.map(e=>{
                             return(
-                                <span key={e.id}>{e.move}
+                                <div key={e.id}>{e.move}
                                     <button name='move' value={e.id} onClick={deleteSelected}>X</button>
-                                </span>
+                                </div>
                             )
                         })
                     }
@@ -356,7 +357,7 @@ export default function Post(){
                         })
                     }
                 </div>
-                <input type={'submit'} value={'Crear'}/>
+                <input className={style.postButton} type={'submit'} value={'Crear'}/>
 
             </form>
         </div>
