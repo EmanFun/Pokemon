@@ -1,15 +1,19 @@
 .containerForm{
     margin: 25px;
+    background-color: beige;
+    border: 3px skyblue solid;
+    height: 48.6rem; 
+    border-radius: 25px;
 }
 
 .form{
-    background-color: beige;
     padding: 15px;
     height: 45rem;
     
 }
 
 .containerInputOne{
+    margin-top: 30px;
     display: grid;
     justify-content: flex-start;
     height: 10rem;
@@ -28,7 +32,7 @@
     display: flex;
     justify-content: space-between;
 
-    padding-top: 2rem;
+
 }
 
 .typesSelected{
@@ -43,26 +47,60 @@
 
 .movesSelected{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+}
+.movesSelected div{
+    border: 3px green solid;
+    border-radius: 10px;
+    padding: 2px;
+    background-color: greenyellow;
+    text-transform: capitalize;
+}
+.movesSelected button{
+    border: 2px red solid;
+    background-color: chocolate;
+    border-radius: 50%;
+    margin-left: 2px;
 }
 
 .selectedOfMoves{
     height: 15rem;
-    display: flex;
-    justify-content: center;
-    /* ordenar bien en forma cuadricular los movimientos a seleccionar */
 }
 
+.selectedOfMoves div{
+    float: left;
+    margin: 5px;
+    border: 3px green solid;
+    border-radius: 10px;
+    background-color: cornflowerblue;
+}
+.selectedOfMoves button{
+    border-style: hidden;
+    border-radius: 50%;
+    background-color: cornflowerblue;
+    text-transform: capitalize;
+}
 .errorSpan{
     text-align: center;
     background-color: orange;
     border: 1px red solid;
     border-radius: 15px;
-    padding: 5px;
-    margin: 5px;
-
+    padding: 2px;
+    margin: 10px;
     font-size: 14px;
 }
+
+.errorSpanTwo{
+    text-align: center;
+    background-color: orange;
+    border: 1px red solid;
+    border-radius: 15px;
+    padding: 2px;
+    margin: 0;
+    width: 130px;
+    font-size: 14px;
+}
+
 
 .labelInput{
     background-color: aqua;
@@ -70,6 +108,7 @@
     border-radius: 25px;
     padding: 3px;
     text-transform: capitalize;
+    text-align: center;
 }
 .labelSpecial{
     background-color: aqua;
@@ -77,4 +116,69 @@
     border-radius: 25px;
     padding: 13px;
     text-transform: capitalize;
+}
+
+.input{
+    padding: 5px;
+    display: grid;
+    align-items: center;
+}
+.output{
+    background-color: greenyellow;
+    border: 2px green solid;
+    border-radius: 50%;
+    padding: 2px;
+    margin-left: 3.5rem;
+}
+
+.typeOptionSelect{
+    margin-top: 10px;
+    background-color: greenyellow;
+    border: 3px green solid;
+    border-radius: 25px;
+    text-transform: capitalize;
+    padding: 5px;
+}
+.typeOptionSelect button{
+    border: 2px green solid;
+    border-radius: 10px;
+    background-color: chocolate;
+    margin-left: 3px;
+}
+
+.typeSelect{
+    border: 2px green solid;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: cornflowerblue;
+}
+.typeSelect button{
+    background-color: cornflowerblue;
+    border-style: hidden;
+    color: black;
+
+}
+
+
+.backButton{
+    background-color: aqua;
+    font-weight: bold;
+
+    height: 40px ;
+    border: 1px skyblue solid;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 22px;
+}
+
+.postButton{
+    background-color: aqua;
+    font-weight: bold;
+    height: 40px;
+    border: 1px skyblue solid;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 25px;
+    position: absolute;
+    left: 50px;
+    bottom: 127px;
+
 }
