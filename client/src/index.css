@@ -59,9 +59,10 @@ body #root{
     height: 52rem;
     width: 92rem;
     background-color:red;
-    border: 3px black solid;
+    border: 4px black solid;
+    border-bottom: 35px rgb(196, 10, 10) solid;
+    border-right: 15px rgb(196,10, 10) solid;
 
-    
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
