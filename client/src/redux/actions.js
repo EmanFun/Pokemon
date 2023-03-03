@@ -156,6 +156,11 @@ export function prev(){
     }
 }
 
+export function pagReset(){
+    return{
+        type: 'PAG_RESET'
+    }
+}
 
 
 //-------------------------orderanados---------------
