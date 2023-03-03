@@ -142,6 +142,17 @@ export default function rootReducer(state = initialState, action ){
                 
                     
             }
+        case 'PAG_RESET':
+            return{
+                ...state,
+                pagination:{
+                    ...state.pagination,
+                    min: 0,
+                    max: 12,
+                    page: 1,
+
+                }
+            }
         default: 
             return {...state}        
     }
