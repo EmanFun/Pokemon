@@ -252,8 +252,8 @@ export default function Main(){
                 
             </section>
             <section className={styles.containerPrev_Next}>
-                <button className={styles.buttonPrev} onClick={prev}>◄ Anterior</button>
-                <button className={styles.buttonNext} onClick={next}>Siguiente ►</button>
+                <button className={styles.buttonPrev_Next} onClick={prev}>◄ Anterior</button>
+                <button className={styles.buttonPrev_Next} onClick={next}>Siguiente ►</button>
             </section>
         </main>
     )
