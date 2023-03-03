@@ -7,24 +7,31 @@
     padding: 5px;
     border-radius: 25px;
     border-color: black;
-  
+    /* background-image: url('https://elcomercio.pe/resizer/pqoIxl4h3_Xe7ChCxxDQP8GUykk=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/66AM3SSB3ZGSJNU2TQAVJNHIWE.jpg'); */
+   /*  background-image: url('https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/others_3/SI_Pokemon.jpg'); */
+    background-image: url('https://media.vandal.net/i/1200x630/10-2021/2021105724573_1.jpg');
+    background-size: cover;
+    background-position: -60px; 
+    
+    
 }
 .buttonInit { 
     position: absolute;
-    top: 37%;
-    left: 37%;
+    top: 84%;
+    left: 40%;
+    background-color:   rgb(223, 241, 52);
+    height: 100px;
+    width: 180px;
+    border: 4px rgb(30, 47, 192) solid;
+    border-radius: 50%;
 
-
-    background-color: aqua;
-    height: 150px;
-    width: 150px;
-    border: 4px skyblue solid;
-    border-radius: 150px;
-    border-color: black;
 
 }
 
+
 .link{
+    font-weight: bold;
     text-decoration: none;
     font-size: 150%;
+    padding: 40px 15px 40px 15px;
 }
