@@ -86,6 +86,7 @@ export default function Main(){
         setSelectFrom('DB')
         dispatch(actions.dbPokemons(bool))
         // trae los pokemons de la base
+        dispatch(actions.pagReset()) // resetea el paginado
     }
     
     const api = (e)=>{
@@ -93,12 +94,15 @@ export default function Main(){
         setTypeSelect('default')
         setSelectFrom('API')
         dispatch(actions.pokemonsApi())
+        dispatch(actions.pagReset())
+        
     }
     const allPokemons= (e)=>{
         clearStateNamePokemon();
         setTypeSelect('default')
         setSelectFrom('TODOS')
         dispatch(actions.reloadPokemon())
+        dispatch(actions.pagReset())
     }
     const typePokemon = (e)=>{
         const typeAction = {
@@ -112,6 +116,7 @@ export default function Main(){
         if(typeAction){
             //dispatch(actions.reloadPokemon());
             dispatch(actions.pokemonType(typeAction))
+            dispatch(actions.pagReset())
         }
         e.target.value= "default"
     }
