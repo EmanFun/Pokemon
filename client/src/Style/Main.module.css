@@ -161,36 +161,24 @@
 
 .containerPrev_Next{
     margin: 25px;
-    background-color: cornflowerblue;
-    border: 2px skyblue solid;
+
     border-radius: 15px;
     height: auto;
     display: flex;
     justify-content: space-between; 
 }
 
-.buttonPrev{
+.buttonPrev_Next{
     background-color: aqua;
     border: 2px skyblue solid;
     height: 40px;
     border-radius: 10px;
 }
-.buttonNext{
-    background-color: aqua;
-    border: 2px skyblue solid;
-    height: 40px;
-    border-radius: 10px;
-}
-.buttonPrev:hover {
+
+.buttonPrev_Next:hover {
    position: relative;
     height: 75px;
     width: 100px;
     font-size: 15px;
 
-}
-.buttonNext:hover{
-    position: relative;
-    height: 75px;
-    width: 100px;
-    font-size: 15px;
 }
