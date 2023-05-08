@@ -6,7 +6,11 @@ body {
   justify-content: center;
   
 
-  
+  background-image:  url('../public/516442d1d96c2e7e0d95c19f46bdd570--pokemon-trees.jpg') ;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  animation: move-image 10s linear infinite; 
   
   
   
@@ -17,38 +21,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body #backGroundImage{
-  background-image:  url('../public/516442d1d96c2e7e0d95c19f46bdd570--pokemon-trees.jpg') ;
-  height: 60.8rem;
-  width: 100%;
-   animation: image 15s linear infinite; 
 
-  
-    /* //animation: background 4s linear infinite ;
-      la imagen de fondo debe tener un movimiento lineal infinito 
-    */
-} 
 
-@keyframes image{
-  0% {
-     padding-left: 1000px;
-     padding-right: 1000px;
-     margin-left: -900px;
-     left: 200px;
-    }
-  25%{
-    left: 400px;
-  }
-  50%{
-    
-    left: 600px;
-    }
-  75%{
-    left: 800px;
-  }
-  100%{
-  left:  1000px;
-
+@keyframes move-image{
+  from{
+    background-position: 0 0;
+  } to {
+    background-position: -1000px 0;
   }
 
 } 
