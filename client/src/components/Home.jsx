@@ -1,6 +1,6 @@
 import React , { useEffect } from "react";
 import * as actions from '../redux/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import store from '../redux/store';
 import {Link} from 'react-router-dom';
 //Css
@@ -9,7 +9,7 @@ import styles from '../Style/Home.module.css'
 
 
 export default function Home(){
-    
+    const fetchData = useSelector(state => state.allPokemons)
     const dispatch = useDispatch();
     //crear un retardo animacion de aprox 10 segundos o lo que dure la peticion request
 
@@ -19,7 +19,7 @@ export default function Home(){
             dispatch(actions.reloadPokemon());
         }
 
-    },[dispatch]); 
+    },[dispatch, fetchData ]); 
     useEffect(()=>{
         dispatch(actions.fetchTypes())
         dispatch(actions.fetchMoves())
@@ -27,13 +27,22 @@ export default function Home(){
     },[dispatch]);
 
     console.log(store.getState())
+    console.log(fetchData[0], !!fetchData)
 
     return (
 
 
             <div className={styles.containerButton}>
-                <button  className={styles.buttonInit}>
-                    <Link className={styles.link} to='/Main'>Acceder</Link>
+                <button 
+                onClick={() => setTimeout(() =>{}, 13000)}
+                className={styles.buttonInit}>
+                    
+                    {
+                        fetchData.length ?
+                    <Link className={styles.link} to='/Main'>Acceder</Link> 
+                    :
+                    <span className={styles.link}>Aguarde</span>
+                    }
                 </button>
             </div>
 
