@@ -85,7 +85,7 @@ export function response(payload){
 
 export function fetchPokemons(){
     return function(dispatch){
-        axios.get('http://localhost:3001/pokemons')
+        axios.get('https://pokemon-production-2708.up.railway.app/pokemons')
             .then(response => response.data)
             .then(data => dispatch(allPokemons(data)))
             .catch(e => console.error(e));
@@ -94,7 +94,7 @@ export function fetchPokemons(){
 
 export function fetchTypes(){
     return function(dispatch){
-        axios.get('http://localhost:3001/types')
+        axios.get('https://pokemon-production-2708.up.railway.app/types')
             .then(r=> r.data)
             .then(data => dispatch(types(data)))
             .catch(err=> console.error(err));
@@ -103,7 +103,7 @@ export function fetchTypes(){
 
 export function fetchMoves(){
     return function(dispatch){
-        axios.get('http://localhost:3001/movesPerType')
+        axios.get('https://pokemon-production-2708.up.railway.app/movesPerType')
             .then(r => r.data)
             .then(data => dispatch(moves(data)))
             .catch(err=> console.error(err))
@@ -112,7 +112,7 @@ export function fetchMoves(){
 
 export function fetchPokemonsByName(name){
     return function(dispatch){
-        axios.get(`http://localhost:3001/pokemons?name=${name}`)
+        axios.get(`https://pokemon-production-2708.up.railway.app/pokemons?name=${name}`)
             .then(r=> r.data)
             .then(data => dispatch(namePokemon(data)))
             .catch(e=> console.error(e));
@@ -122,7 +122,7 @@ export function fetchPokemonsByName(name){
 
 export function dbPokemons(bool){
     return function (dispatch){
-        axios.get(`http://localhost:3001/pokemons?created=${bool}`)
+        axios.get(`https://pokemon-production-2708.up.railway.app/pokemons?created=${bool}`)
             .then(r=> r.data)
             .then(data => dispatch(pokemonsDB(data)))
             .catch(e=>console.error(e));
@@ -131,7 +131,7 @@ export function dbPokemons(bool){
 
 export function postPokemon(post, history){
     return function (dispatch){
-        axios.post('http://localhost:3001/postPokemons',post)
+        axios.post('https://pokemon-production-2708.up.railway.app/postPokemons',post)
             .then(r=> r.data)
             .then(payload=>{
                 alert(payload)
