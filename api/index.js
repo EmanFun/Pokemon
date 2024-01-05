@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 require('dotenv').config();
-const PORT = process.env.DB_PORT;
+const PORT = process.env.PORT || 3001;
 const { conn } = require('./src/db.js');
 const { getTypesAndMoves} = require('./src/controller/data');
 
@@ -51,7 +51,7 @@ conn.sync({ force: true }).then(async () => {
   await prueba.addType([type])
   //--------------
 
-  server.listen(PORT || 3001, () => {
+  server.listen(PORT, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
 });
