@@ -21,7 +21,7 @@ export default function Detail(){
 
     useEffect(()=>{
         
-        axios.get(`https://pokemon-production-2708.up.railway.app/${id}`)
+        axios.get(`https://pokemon-production-2708.up.railway.app/pokemons/${id}`)
             .then(r => r.data)
             .then( data => dispatch(actions.idPokemon(data)))
             .catch(e=> console.log(e));
